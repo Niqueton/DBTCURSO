@@ -9,7 +9,7 @@ base_promos2 as (
         status,
         to_date(_fivetran_synced) as Load_Date
         to_time(_fivetran_synced) as Load_Time
-    from promos1
+    from base_promos1
     where _fivetran_deleted=False
 
 )

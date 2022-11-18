@@ -1,21 +1,24 @@
-with us as (
+with base_users1 as (
     select * from {{ source('src_sql_server', 'users') }}
 )
 ,
-useri as (
+base_users2 as (
     select 
-    	ROW_NUMBER() over(order by USER_ID),
-    	USER_ID ,
-		UPDATED_AT ,
+    	ID_DIM_users,
+    	User_ID as NK_users ,
+		to_date(UPDATED_AT) as Update_Date ,
+		to_time(UPDATED_AT) as Update_Time,
 		ADDRESS_ID ,
 		LAST_NAME ,
-		CREATED_AT ,
+		to_date(created_AT) as Create_Date ,
+		to_time(created_AT) as Create_Time,
 		PHONE_NUMBER ,
 		FIRST_NAME ,
 		EMAIL ,
-		_FIVETRAN_DELETED,
-		_FIVETRAN_SYNCED as Load_Timestamp 
-	from us
+        to_date(_fivetran_synced) as Load_Date,
+        to_time(_fivetran_synced) as Load_Time 
+	from base_users1
+	where _fivetran_deleted=False
 )
 
-select * from useri
+select * from base_users2
