@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: src_google_sheets # name of the source
+    description: >
+      Raw data demo from Database.
+    schema: google_sheets # this is the schema our raw data lives in
+    database: dev_bronze_db_alumno10 # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    tables:
+      - name: budget
+        description: >
+          Data about budget in demo.
+        columns:
+          - name: _row
+            description: >
+              PK de la tabla budget.
+
+          - name: product_id
+            description: >
+               PK de la tabla de orders.
+
+          - name: quantity
+            description: >
+              Cantidad de cada producto.
+
+          - name: month
+            description: >
+              Cada mes del año.
+            
+          - name: _fivetran_synced
+            description: >
+              Fecha en la que los datos se cargaron.
+
