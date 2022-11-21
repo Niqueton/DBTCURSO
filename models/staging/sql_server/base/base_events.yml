@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: base_events
+    description: "Primera transformación de la tabla de origen events del sistema operacional"
+    columns:
+      - name: id_web_interaction
+        description: "Llave surrogada insertada en snowflake previamente"
+      - name: produced_at_date
+        description: "Fecha en la que tuvo lugar la visita web"
+      - name: produced_at_time
+        description: "Hora en la que tuvo lugar la visita web"
+      - name: event_id
+        description: "NK_events del sistema operacional"
+      - name: event_type
+        description: "Tipo de evento"
+      - name: order_id
+        description: "NK_orders del sistema operacional"
+      - name: page_url
+        description: "Página web visitada"
+      - name: product_id
+        description: "NK_product del sistema operacional"
+      - name: session_id
+        description: "identificador de la sesión"
+      - name: user_id
+        description: "NK_users del sistema operacional"
+      - name: load_date
+        description: "Fecha de carga"
+      - name: load_time
+        description: "Hora de carga"
