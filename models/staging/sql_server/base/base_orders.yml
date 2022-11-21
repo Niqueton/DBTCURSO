@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: base_orders
+    description: "Primera transformación de la tabla de origen orders"
+    columns:
+      - name: id_order_tracking
+        description: "Llave surrogada incorporada previamente en snowflake"
+      - name: address_id
+        description: "NK de la tabla de origen addresses, FK en esta tabla"
+      - name: received_at_date
+        description: "Fecha en la que se acepta un pedido"
+      - name: received_at_time
+        description: "Hora a la que se acepta un pedido"
+      - name: delivered_at_date
+        description: "Fecha de entrega de un pedido"
+      - name: delivered_at_time
+        description: "Hora de entrega de un pedido"
+      - name: estimated_delivery_at_date
+        description: "Fecha estimada de entrega de un pedido"
+      - name: estimated_delivery_at_time
+        description: "Hora estimada de entrrga de un pedido"
+      - name: order_cost_in_dollars
+        description: "Coste del pedido sin tener en cuenta los gastos de envío"
+      - name: nk_orders
+        description: "Llave natural de la tabla de origen orders"
+      - name: order_total_in_dollars
+        description: "Coste total del pedido incluyendo gastos de envío"
+      - name: promo_id
+        description: "NK de la tabla de origen promos"
+      - name: shipping_cost_in_dollars
+        description: "Coste de gastos de envío de cada pedido"
+      - name: shipping_service
+        description: "Servicio de paquetería encargado del pedido"
+      - name: status
+        description: "Estado del pedido"
+      - name: tracking_id
+        description: "Identificador de seguimiento del pedido"
+      - name: user_id
+        description: "NK de la tabla de origen usuario"
+      - name: load_date
+        description: "Fecha de carga en el sistema informacional"
+      - name: load_time
+        description: "Hora de carga en el sistema informacional"

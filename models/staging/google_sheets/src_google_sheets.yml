@@ -17,6 +17,12 @@ sources:
         description: >
           Data about budget in demo.
         columns:
+          - name: id_budgets
+            description: >
+              Llave surrogada
+            tests:
+             - unique
+             - not_null
           - name: _row
             description: >
               PK de la tabla budget.

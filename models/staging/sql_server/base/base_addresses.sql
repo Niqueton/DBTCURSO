@@ -6,6 +6,7 @@ base_addresses2 as (
         ID_SHIPPING_ADDRESS,
         ADDRESS,
         ADDRESS_ID as NK_address,
+        STATE,
         COUNTRY,
         ZIPCODE,
         to_date(_fivetran_synced) as Load_Date,
