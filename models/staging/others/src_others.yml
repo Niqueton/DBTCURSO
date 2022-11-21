@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: src_others
+    description: "Esquema reservado para fuentes de datos alternativas"
+    database: dev_bronze_db_alumno10
+    tables:
+      - name: productdesc
+        description: "Tabla que incluye descripciones de los productos"
+        columns:
+          - name: product_name
+            description: "Nombre del producto"
+          - name: description
+            description: "Descripción del producto"

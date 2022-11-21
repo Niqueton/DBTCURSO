@@ -1,34 +1,31 @@
-with base_products as (
+with ProductDesc as (
+    select * from {{ source('src_others', 'productdesc') }}
+),
+base_products1 as (
     select * from {{ ref('base_products') }}
 ),
-base_order_items as (
-    select * from {{ ref('base_order_items') }}
-),
-base_orders as (
-    select * from {{ ref('base_orders') }}
+aux1 as (
+    select 
+        p.Product_Name,
+        sum(o.quantity) as 
+    from base_products1 p
+    left join {{ ref('model_name') }}
+    on p.PRODUCT_ID=o.PRODUCT_ID
+    where timestampadd(month,1,o._fivetran_synced)>current_timestamp()
+    group by p.Name;
 ),
 stg_products1 as (
     select 
-    sum(o.NUMBER_OF_UNITS) as Item_sold_last_month,p.Product_name
-    from base_order_items as o
-    left join base_products as p
-    on o.PRODUCT_ID=p.NK_product
-    left join base_orders as ord
-    on o.ORDER_ID=ord.NK_orders
-    group by p.Name
-    having dateadd(Month,1,ord.Received_at_Date)>=current_date()
-),
-stg_products2 as (
-    select 
-    	p.ID_DIM_products,
+        p.ID_DIM_products,
     	p.NK_product ,
 		p.Product_base_Price ,
 		p.Product_Name,
-        p.INVENTORY,
-		p.Price_Range,
+        p.INVENTORY as Stock,
+        p.Price_Range,
+        pd.Description,
         p.Load_Date,
-        p.Load_Time 
-    from base_products as p
-    left join stg_products1 as s
-    on p.Product_Name=s.Product_Name
+        p.Load_Time
+    from base_products1 as p
+    left join ProductDesc as pd
+    on p.Product_name=pd.Product_name
 )
