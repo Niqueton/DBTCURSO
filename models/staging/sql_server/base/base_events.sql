@@ -1,3 +1,13 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='ID_WEB_INTERACTION',
+        on_schema_change='fail'
+    )
+}}
+
+
+
 with base_events1 as (
     select * from 
     {{ source('src_sql_server', 'events') }}
@@ -14,10 +24,15 @@ base_events2 as (
         PRODUCT_ID,
         SESSION_ID,
         USER_ID,
-        to_date(_fivetran_synced) as Load_Date,
-        to_time(_fivetran_synced) as Load_Time 
+        _fivetran_synced as Load_Timestamp
     from base_events1
     where _fivetran_deleted is null
 )
 
 select * from base_events2
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
+  
+{% endif %}

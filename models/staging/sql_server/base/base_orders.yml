@@ -8,18 +8,12 @@ models:
         description: "Llave surrogada incorporada previamente en snowflake"
       - name: address_id
         description: "NK de la tabla de origen addresses, FK en esta tabla"
-      - name: received_at_date
-        description: "Fecha en la que se acepta un pedido"
-      - name: received_at_time
-        description: "Hora a la que se acepta un pedido"
-      - name: delivered_at_date
-        description: "Fecha de entrega de un pedido"
-      - name: delivered_at_time
-        description: "Hora de entrega de un pedido"
-      - name: estimated_delivery_at_date
-        description: "Fecha estimada de entrega de un pedido"
-      - name: estimated_delivery_at_time
-        description: "Hora estimada de entrrga de un pedido"
+      - name: received_at_timestamp
+        description: "Timestamp en el que se acepta un pedido"
+      - name: delivered_at_timestamp
+        description: "Timestamp de entrega de un pedido"
+      - name: estimated_delivery_at_timestamp
+        description: "Timestamp estimado de entrega de un pedido"
       - name: order_cost_in_dollars
         description: "Coste del pedido sin tener en cuenta los gastos de envío"
       - name: nk_orders
