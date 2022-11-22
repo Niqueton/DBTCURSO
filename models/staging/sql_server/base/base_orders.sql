@@ -1,16 +1,16 @@
 {{
     config(
         materialized='incremental',
-        unique_key='ID_ORDER_TRACKING',
-        on_schema_change='fail'
+        unique_key='ID_ORDER_TRACKING'
     )
 }}
 
 
 with base_orders1 as (
     select * from {{ source('src_sql_server', 'orders') }}
-),
-base_orders2 as(
+)
+
+
     select
         ID_ORDER_TRACKING,
         ADDRESS_ID,
@@ -30,13 +30,19 @@ base_orders2 as(
         
 from base_orders1
 where _fivetran_deleted is null
-)
-
-select * from base_orders2
-
 
 {% if is_incremental() %}
 
-  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
-  
+
+  and  _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
+
 {% endif %}
+
+
+
+
+
+
+
+
+  

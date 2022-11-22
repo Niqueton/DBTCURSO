@@ -18,7 +18,7 @@ stg_products1 as (
         p.Load_Time
     from base_products1 as p
     left join ProductDesc as pd
-    on p.Product_name=pd.Product_name
+    on p.product_name=pd.product_name
 )
 
 select * from stg_products1

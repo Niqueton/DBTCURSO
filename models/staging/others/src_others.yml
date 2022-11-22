@@ -3,6 +3,7 @@ version: 2
 sources:
   - name: src_others
     description: "Esquema reservado para fuentes de datos alternativas"
+    schema: others
     database:  |  
         {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno10
         {%- elif target.name == 'ci' -%} dev_bronze_db_alumno10 

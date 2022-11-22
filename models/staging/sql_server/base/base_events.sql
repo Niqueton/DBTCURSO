@@ -11,8 +11,9 @@
 with base_events1 as (
     select * from 
     {{ source('src_sql_server', 'events') }}
-),
-base_events2 as (
+)
+
+
     select 
         ID_WEB_INTERACTION,
         to_date(CREATED_AT) as Produced_at_Date,
@@ -27,12 +28,10 @@ base_events2 as (
         _fivetran_synced as Load_Timestamp
     from base_events1
     where _fivetran_deleted is null
-)
 
-select * from base_events2
 
 {% if is_incremental() %}
 
-  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
+  and _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
   
 {% endif %}
