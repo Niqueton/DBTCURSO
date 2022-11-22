@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: base_products
+    description: "Primera transformación de la tabla de origen productos, algunos cambios de nombre y separación de timestamp en fehca y hora del día"
+    columns:
+      - name: id_dim_products
+        description: "Llave surrogada introducida en paso previo en snowflake"
+      - name: nk_product
+        description: "Llave natural de la fuente de origen"
+      - name: product_base_price
+        description: "Precio base de cada producto"
+      - name: product_name
+        description: "Nombre del producto"
+      - name: inventory
+        description: "Inventario "
+      - name: price_range
+        description: "Rango de precio del producto"
+      - name: load_date
+        description: "Fecha de carga al sistema informacional"
+      - name: load_time
+        description: "Hora del carga al sistema informacional"

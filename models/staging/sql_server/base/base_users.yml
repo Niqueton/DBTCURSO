@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: base_users
+    description: "Tabla de usuarios en el sistema de origen"
+    columns:
+      - name: id_dim_users
+        description: "Llave surrogada insertada previamente en snowflake"
+      - name: nk_users
+        description: "Llave natural de usuario en el sistema operacional"
+      - name: update_date
+        description: "Fecha de actualización"
+      - name: update_time
+        description: "Hora de actualización"
+      - name: address_id
+        description: "Llave natural de la tabla addresses del sistema operacional"
+      - name: last_name
+        description: "Apellido"
+      - name: create_date
+        description: "Fecha de creación"
+      - name: create_time
+        description: "Hora de creación"
+      - name: phone_number
+        description: "Número de teléfono"
+      - name: first_name
+        description: "Nombre"
+      - name: email
+        description: "Dirección de email"
+      - name: load_date
+        description: "Fecha carga"
+      - name: load_time
+        description: "Hora de carga"

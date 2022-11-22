@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: base_budget
+    description: "Primera transformación de la tabla del sistema operacional budget"
+    columns:
+      - name: id_budgets
+        description: "Llave surrogada insertada en snowflake previamente"
+      - name: month
+        description: "Més"
+      - name: product_id
+        description: "NK del producto en el sistema de origen"
+      - name: number_of_units_expected
+        description: "Número de unidades que se espera vender "
+      - name: load_date
+        description: "Fecha de carga"
+      - name: load_time
+        description: "Hora de carga"
