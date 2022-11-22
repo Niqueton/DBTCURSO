@@ -1,3 +1,9 @@
+{{ config(
+    materialized='incremental',
+    unique_key = 'ID_ORDER_TRACKING'
+    ) 
+    }}
+
 with base_orders1 as (
     select * from {{ ref('base_orders') }}
 ),
@@ -25,3 +31,10 @@ stg_order_tracking1 as (
 )
 
 select * from stg_order_tracking1
+
+
+{% if is_incremental() %}
+
+  where Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
+
+{% endif %}

@@ -5,8 +5,12 @@ sources:
     description: >
       Raw data demo from Database.
     schema: google_sheets # this is the schema our raw data lives in
-    database: dev_bronze_db_alumno10 # this is the name of our database
-
+    database:  |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno10
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno10  
+        {%- else -%} {{target.database}}_bronze_db_alumno10
+        {%- endif -%}
     quoting:
       database: false
       schema: false
@@ -26,19 +30,15 @@ sources:
           - name: _row
             description: >
               PK de la tabla budget.
-
           - name: product_id
             description: >
                PK de la tabla de orders.
-
           - name: quantity
             description: >
               Cantidad de cada producto.
-
           - name: month
             description: >
               Cada mes del año.
-            
           - name: _fivetran_synced
             description: >
               Fecha en la que los datos se cargaron.

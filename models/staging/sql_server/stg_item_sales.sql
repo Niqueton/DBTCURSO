@@ -1,3 +1,11 @@
+
+{{ config(
+    materialized='incremental',
+    unique_key = 'ID_ITEM_SALES'
+    ) 
+    }}
+
+
 with base_orders1 as (
     select * from {{ ref('base_orders') }}
 ),
@@ -11,6 +19,7 @@ base_products1 as (
 
 stg_item_sales as (
     select
+        md5(concat(oi.PRODUCT_ID,o.NK_orders)) as ID_ITEM_SALES,
         oi.PRODUCT_ID as FK_product_id,
         oi.NUMBER_OF_UNITS as Quantity_sold,
         oi.Load_Timestamp,
@@ -30,3 +39,9 @@ stg_item_sales as (
 )
 
 select * from stg_item_sales
+
+{% if is_incremental() %}
+
+  where oi.Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
+
+{% endif %}

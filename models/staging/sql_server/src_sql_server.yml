@@ -4,7 +4,12 @@ sources:
 
   - name: src_sql_server
     schema: sql_server
-    database: dev_bronze_db_alumno10
+    database:  |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno10
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno10  
+        {%- else -%} {{target.database}}_bronze_db_alumno10
+        {%- endif -%}
     tables:
       - name: addresses
         description: >
