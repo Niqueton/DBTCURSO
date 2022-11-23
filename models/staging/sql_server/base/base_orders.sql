@@ -1,9 +1,4 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key='ID_ORDER_TRACKING'
-    )
-}}
+
 
 
 with base_orders1 as (
@@ -31,12 +26,7 @@ with base_orders1 as (
 from base_orders1
 where _fivetran_deleted is null
 
-{% if is_incremental() %}
 
-
-  and  _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
-
-{% endif %}
 
 
 

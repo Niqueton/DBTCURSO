@@ -6,9 +6,8 @@
 
 with base_orders1 as (
     select * from {{ ref('base_orders') }}
-),
+)
 
-stg_order_tracking1 as (
     select
         ID_ORDER_TRACKING,
         ADDRESS_ID,
@@ -26,12 +25,8 @@ stg_order_tracking1 as (
         USER_ID,
         Load_Timestamp,
         timestampdifF(hour,Received_at_Timestamp,Delivered_at_Timestamp) as Lag_respect_received_order,
-        timestampdifF(hour,Estimated_delivery_at_timestamp,Delivered_at_Timestamp) as Lag_respect_estimated_delivery_order,
+        timestampdifF(hour,Estimated_delivery_at_timestamp,Delivered_at_Timestamp) as Lag_respect_estimated_delivery_order
     from base_orders1
-)
-
-select * from stg_order_tracking1
-
 
 {% if is_incremental() %}
 

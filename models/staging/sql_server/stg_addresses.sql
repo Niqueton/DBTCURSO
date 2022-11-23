@@ -4,22 +4,29 @@ with base_addresses as (
 husos_horarios as(
     select * from {{ ref('husos_horarios') }}
 ),
+cityzipcode as (
+    select * from {{ source('src_others', 'cityzipcode') }}
+),
 
 stg_addresses1 as (
     select 
-        ID_SHIPPING_ADDRESS,
-        ADDRESS,
-        NK_address,
+        a.ID_SHIPPING_ADDRESS,
+        a.ADDRESS,
+        a.NK_address,
         a.STATE,
-        COUNTRY,
-        ZIPCODE,
+        a.COUNTRY,
+        a.ZIPCODE,
+        c.city,
         h.hour_zone,
-        Load_Date,
-        Load_Time
+        a.Load_Date,
+        a.Load_Time
         
     from base_addresses as a
     left join husos_horarios as h
     on a.STATE=h.STATE
+    inner join cityzipcode c
+    on a.ZIPCODE=c.ZIPCODE
+    
 )
 
 select * from stg_addresses1

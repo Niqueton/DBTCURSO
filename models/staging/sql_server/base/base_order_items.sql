@@ -1,9 +1,3 @@
-{{
-    config(
-        materialized='incremental',
-        on_schema_change='fail'
-    )
-}}
 
 
 with base_order_items1 as (
@@ -23,8 +17,3 @@ base_order_items2 as (
 select * from base_order_items2
 
 
-{% if is_incremental() %}
-
-  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
-  
-{% endif %}

@@ -18,3 +18,10 @@ sources:
             description: "Nombre del producto"
           - name: description
             description: "Descripción del producto"
+      - name: cityzipcode  
+        description: "Tabla que mapea ciudades y zipcodes estadounidenses"
+        columns:
+          - name: zipcode
+            description: "Código postal"
+          - name: city
+            description: "Ciudad"

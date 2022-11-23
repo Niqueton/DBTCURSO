@@ -1,11 +1,3 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key='ID_WEB_INTERACTION',
-        on_schema_change='fail'
-    )
-}}
-
 
 
 with base_events1 as (
@@ -30,8 +22,3 @@ with base_events1 as (
     where _fivetran_deleted is null
 
 
-{% if is_incremental() %}
-
-  and _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
-  
-{% endif %}
