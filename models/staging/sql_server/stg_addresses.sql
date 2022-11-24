@@ -16,7 +16,7 @@ stg_addresses1 as (
         a.STATE,
         a.COUNTRY,
         a.ZIPCODE,
-        c.city,
+        regexp_replace(c.city,'"') as city,
         h.hour_zone,
         a.Load_Date,
         a.Load_Time
@@ -24,7 +24,7 @@ stg_addresses1 as (
     from base_addresses as a
     left join husos_horarios as h
     on a.STATE=h.STATE
-    inner join cityzipcode c
+    left join cityzipcode c
     on a.ZIPCODE=c.ZIPCODE
     
 )

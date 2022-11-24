@@ -1,4 +1,5 @@
 
+
 with boi as (
     select Product_id,number_of_units,Load_Timestamp from {{ ref('base_order_items') }}
 ),

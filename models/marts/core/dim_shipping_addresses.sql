@@ -1,5 +1,5 @@
 {{ config(
-    post_hook="{{ nulos_a_desconocidos('{{ this }}',city) }}"
+    post_hook=" update {{ this }} set city='Desconocido' where city is null "
 ) }}
 
 
@@ -14,10 +14,25 @@ select
     a.NK_address,
     a.STATE,
     a.COUNTRY,
-    a.ZIPCODE,
+    a.ZIPCODE::varchar as Zipcode,
     a.city,
     a.hour_zone as time_zone,
     a.Load_Date,
     a.Load_Time
 from stg_addresses a
 
+union
+
+select 
+   
+    0,
+    'No aplica',
+    'No aplica',
+    'No aplica',
+    'No aplica',
+    'No aplica',
+    'No aplica',
+    'No aplica',
+    current_date(),
+    current_time()  
+   
