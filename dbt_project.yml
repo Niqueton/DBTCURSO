@@ -1,7 +1,8 @@
+
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'curso'
+name: 'my_new_project'
 version: '1.0.0'
 config-version: 2
 
@@ -31,45 +32,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  +transient: false
-  curso:
+  my_new_project:
     # Applies to all files under models/example/
-
-    staging:
-      +materialized: view
-      +database: |  
-        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno10 
-        {%- elif target.name == 'ci' -%} dev_silver_db_alumno10 
-        {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
-        {%- else -%} {{target.database}}_silver_db_alumno10
-        {%- endif -%}
-      google_sheets:
-        +schema: google_sheets
-      sql_server:
-        +schema: sql_server
-      others:
-        +schema: others
-      
-    marts:
-      +materialized: table
-      +database: |  
-        {%- if  target.name == 'user_dev' -%} dev_gold_db_alumno10  
-        {%- elif target.name == 'ci' -%} dev_gold_db_alumno10 
-        {%- elif target.name == 'pro'-%} pro_gold_db_alumno10 
-        {%- else -%} {{target.database}}_gold_db_alumno10
-        {%- endif -%}
-      core:
-        +schema: core
-      distintas areas:
-        +schema: distintas_areas
-        
-snapshots:
-  +sql_header: "alter session set timezone = 'Europe/Madrid';alter session set week_start = 7;"
-  +transient: false
-  +target_database: |  
-        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno10 
-        {%- elif target.name == 'ci' -%} dev_silver_db_alumno10 
-        {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
-        {%- else -%} {{target.database}}_silver_db_alumno10
-        {%- endif -%}
-  +target_schema: snapshots
+    example:
+      materialized: view

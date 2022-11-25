@@ -1,0 +1,88 @@
+name: 'Prueba'
+
+config-version: 2
+version: version
+
+profile: 'cursossss'
+
+# Estas son las rutas a las carpetas asociadas a su función 
+model-paths: ["models"]
+seed-paths: ["seeds"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+asset-paths: ["assets"]
+
+log-path: ["logs"]
+packages-install-path: ["dbt_packages"]
+
+
+require-dbt-version: ">=1.0.0"
+
+quoting:
+  database: false
+  schema: false
+  identifier: false
+
+
+models:
+  +transient: false
+  curso:
+    staging:
+      +materialized: view
+      +database: |  
+        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'ci' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
+        {%- else -%} {{target.database}}_silver_db_alumno10
+        {%- endif -%}
+      google_sheets:
+        +schema: google_sheets
+      sql_server:
+        +schema: sql_server
+      others:
+        +schema: others
+    marts:
+      +materialized: table
+      +database: |  
+        {%- if  target.name == 'user_dev' -%} dev_gold_db_alumno10  
+        {%- elif target.name == 'ci' -%} dev_gold_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_gold_db_alumno10 
+        {%- else -%} {{target.database}}_gold_db_alumno10
+        {%- endif -%}
+      core:
+        +schema: core
+      distintas_areas:
+        +schema: distintas_areas
+seeds:
+  +transient: false
+  +target_database: |  
+        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'ci' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
+        {%- else -%} {{target.database}}_silver_db_alumno10
+        {%- endif -%}
+  +target_schema: seeds
+
+snapshots:
+  +sql_header: "alter session set timezone = 'Europe/Madrid';alter session set week_start = 7;"
+  +transient: false
+  +target_database: |  
+        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'ci' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
+        {%- else -%} {{target.database}}_silver_db_alumno10
+        {%- endif -%}
+  +target_schema: snapshots
+
+sources:
+  [<source-configs>](source-configs)
+  
+tests:
+  [<test-configs>](test-configs)
+
+vars:
+  "dbt_ml:audit_schema": "audit"
+  "dbt_ml:audit_table": "ml_models"
+
