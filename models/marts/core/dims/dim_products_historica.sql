@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key = 'ID_DIM_CUSTOMER',
+    unique_key = 'ID_DIM_products',
     ) 
     }}
 
@@ -9,6 +9,7 @@ with stg_products_snapshot as (
 )
 select 
         ID_DIM_products,
+        rank()over(partition by NK_product order by DBT_VALID_FROM desc) as Version,
       	NK_product ,
 	    	Product_base_Price ,
 	    	Product_Name,

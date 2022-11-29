@@ -1,8 +1,13 @@
-{{ config(
-    materialized='incremental',
-    unique_key = 'ID_ORDER_TRACKING'
-    ) 
+{% snapshot stg_order_tracking_snapshot %}
+
+{{
+        config(
+          unique_key='NK_orders',
+          strategy='timestamp',
+          updated_at='Load_Timestamp'
+        )
     }}
+
 
 with base_orders1 as (
     select * from {{ ref('base_orders') }}
@@ -28,8 +33,4 @@ with base_orders1 as (
         timestampdifF(hour,Estimated_delivery_at_timestamp,Delivered_at_Timestamp) as Lag_respect_estimated_delivery_order
     from base_orders1
 
-{% if is_incremental() %}
-
-  where Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
-
-{% endif %}
+{% endsnapshot %}

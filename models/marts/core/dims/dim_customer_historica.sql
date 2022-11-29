@@ -26,10 +26,11 @@ select
 	u.LOAD_TIME ,
 	u.DBT_VALID_FROM as VALID_FROM,
 	u.DBT_VALID_TO as VALID_TO
-from u as u
+
+from u
+
 left join stg_addresses as a
 on u.ADDRESS_ID=a.NK_address
-
 
 {% if is_incremental() %}
 

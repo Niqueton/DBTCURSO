@@ -1,8 +1,12 @@
+{{ config(
+    materialized='incremental',
+    unique_key = 'ID_ORDER_TRACKING'
+    ) 
+    }}
 
--- Es snapshot
 
 with stg_order_tracking as (
-    select * from {{ ref('stg_order_tracking') }}
+    select * from {{ ref('stg_order_tracking_snapshot') }}
 ),
 
 dim_shipping_address as (
@@ -10,15 +14,15 @@ dim_shipping_address as (
 ),
 
 intermediate_order as (
-    select * from {{ ref('dim_order') }}
-)
+    select * from {{ ref('intermediate_order') }}
+),
 
 dim_promos as (
     select * from {{ ref('dim_promos') }}
 ),
 
 dim_customer as (
-    select * from {{ ref('dim_customer') }}
+    select * from {{ ref('dim_customer_historica') }}
 ),
 
 dim_date_received as (
@@ -40,8 +44,8 @@ base_events as (
 
 
 select 
-
-      c.ID_DIM_CUSTOMER
+     ot.ID_ORDER_TRACKING
+    ,  c.ID_DIM_CUSTOMER
     , p.ID_DIM_promos
     , a.ID_SHIPPING_ADDRESS
     , ot.NK_orders as DD_order_id
@@ -55,19 +59,18 @@ select
     , ot.STATUS
     , ot.Lag_respect_received_order
     , ot.Lag_respect_estimated_delivery_order
+    , ot.Load_Timestamp
     , case 
         when e.PAGE_URL is null then 'Tienda física'
         else e.PAGE_URL
-
-
-
+      end as Place_of_purchase
 from stg_order_tracking ot
 
 left join base_events e 
 on ot.NK_orders=e.ORDER_ID
 
 left join dim_shipping_address a 
-on o.ADDRESS_ID=a.NK_address
+on ot.ADDRESS_ID=a.NK_address
 
 left join intermediate_order o 
 on ot.NK_orders=o.NK_orders
@@ -87,5 +90,11 @@ on to_date(ot.Delivered_at_Timestamp)=d2.date_day
 left join dim_date_estimated_delivery d3
 on to_date(ot.Estimated_Delivery_at_Timestamp)=d3.date_day
 
+where ot.DBT_VALID_TO is null
 
+{% if is_incremental() %}
+
+  and ot.Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
+
+{% endif %}
 

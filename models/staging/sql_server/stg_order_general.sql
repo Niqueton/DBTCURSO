@@ -3,7 +3,7 @@ with stg_item_sales as (
 ),
 
 stg_order_tracking as (
-    select * from {{ ref('stg_order_tracking') }}
+    select * from {{ ref('stg_order_tracking_snapshot') }}
 )
 
 select 

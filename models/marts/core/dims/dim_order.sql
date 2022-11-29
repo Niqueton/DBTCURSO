@@ -8,4 +8,12 @@ select
     SHIPPING_SERVICE,
     RANGE_ORDER_TOTAL_USD
 from 
-stg_order_general
+intermediate_order
+
+union 
+
+select  
+      '0'
+    , 0
+    , 'No aplica'
+    , 'No aplica'
