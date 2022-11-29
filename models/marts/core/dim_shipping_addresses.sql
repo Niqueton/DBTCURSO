@@ -1,7 +1,7 @@
-{{ config(
+/*{{ config(
     post_hook=" update {{ this }} set city='Desconocido' where city is null "
-) }}
-
+) }}*/
+{% set jugada=pasar_nulos_a_desconcidos() %}
 
 with stg_addresses as (
     select * from {{ ref('stg_addresses') }}
@@ -9,16 +9,16 @@ with stg_addresses as (
 
 
 select 
-    a.ID_SHIPPING_ADDRESS,
-    a.ADDRESS,
-    a.NK_address,
-    a.STATE,
-    a.COUNTRY,
-    a.ZIPCODE::varchar as Zipcode,
-    a.city,
-    a.hour_zone as time_zone,
-    a.Load_Date,
-    a.Load_Time
+    ID_SHIPPING_ADDRESS,
+    ADDRESS,
+    NK_address,
+    STATE,
+    COUNTRY,
+    ZIPCODE::varchar as Zipcode,
+    {{jugada}}.null_to_unknow(city),
+    hour_zone as time_zone,
+    Load_Date,
+    Load_Time
 from stg_addresses a
 
 union

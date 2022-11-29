@@ -8,8 +8,18 @@ with stg_products_snapshot as (
     select * from {{ ref('stg_products_snapshot') }}
 )
 select 
-
-from
+        ID_DIM_products,
+      	NK_product ,
+	    	Product_base_Price ,
+	    	Product_Name,
+        Price_Range,
+        Description,
+        Security_Stock,
+        Load_Date,
+        Load_Time,
+        DBT_VALID_FROM as Valid_from,
+        DBT_VALID_TO as Valid_to
+from stg_products_snapshot
 
 
 
@@ -19,6 +29,6 @@ from
 
 {% if is_incremental() %}
 
-  where u.DBT_VALID_FROM > (select max(VALID_FROM) from {{ this }})
+  where Load_date >= (select max(Load_Date) from {{ this }})
 
 {% endif %}

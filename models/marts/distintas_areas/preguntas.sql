@@ -3,7 +3,7 @@ with base_events as (
 ),
 
 base_users as (
-    select * from {{ ref('base_users') }}
+    select * from {{ ref('base_users_snapshot') }}
 ),
 
 stg_addresses as (

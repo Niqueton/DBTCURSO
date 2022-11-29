@@ -1,12 +1,13 @@
-{{ config(
+ {{ config(
     materialized='incremental',
     unique_key = 'ID_DIM_CUSTOMER',
     ) 
     }}
 
 
-with stg_users_snapshot as (
-    select * from {{ ref('stg_users_snapshot') }}
+
+with u as (
+    select * from {{ ref('base_users_snapshot') }}
 ),
 
 stg_addresses as (
@@ -25,14 +26,14 @@ select
 	u.LOAD_TIME ,
 	u.DBT_VALID_FROM as VALID_FROM,
 	u.DBT_VALID_TO as VALID_TO
-from stg_users_sanpshot u
-left join stg_addresses a
+from u as u
+left join stg_addresses as a
 on u.ADDRESS_ID=a.NK_address
 
 
 {% if is_incremental() %}
 
   where u.DBT_VALID_FROM > (select max(VALID_FROM) from {{ this }})
-  or (u.DBT_VALID_TO is not null and u-DBT_VALID_TO>= (select max(valid_from) from {{ this }})
+  or u.DBT_VALID_TO>= (select max(valid_from) from {{ this }})
 
 {% endif %}

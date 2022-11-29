@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'curso'
 version: '1.0.0'
 config-version: 2
 
@@ -13,16 +13,27 @@ profile: 'default'
 # The `source-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
 model-paths: ["models"]
+seed-paths: ["seeds"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
-seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
+asset-paths: ["assets"]
+
 
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
+
+require-dbt-version: ">=1.0.0"
+
+quoting:
+  database: false
+  schema: false
+  identifier: false
+
+
 
 
 # Configuring models
@@ -32,7 +43,61 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  my_new_project:
-    # Applies to all files under models/example/
-    example:
-      materialized: view
+  +transient: false
+
+  curso:
+    staging:
+      +materialized: view
+      +database: |  
+        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'ci' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
+        {%- else -%} {{target.database}}_silver_db_alumno10
+        {%- endif -%}
+      google_sheets:
+        +schema: google_sheets
+      sql_server:
+        +schema: sql_server
+      others:
+        +schema: others
+    marts:
+      +materialized: table
+      +database: |  
+        {%- if  target.name == 'user_dev' -%} dev_gold_db_alumno10  
+        {%- elif target.name == 'ci' -%} dev_gold_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_gold_db_alumno10 
+        {%- else -%} {{target.database}}_gold_db_alumno10
+        {%- endif -%}
+      core:
+        +schema: core
+      distintas_areas:
+        +schema: distintas_areas
+seeds:
+  +transient: false
+  +target_database: |  
+        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'ci' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
+        {%- else -%} {{target.database}}_silver_db_alumno10
+        {%- endif -%}
+  +target_schema: seeds
+
+snapshots:
+  +sql_header: "alter session set timezone = 'Europe/Madrid';alter session set week_start = 7;"
+  +transient: false
+  +target_database: |  
+        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'ci' -%} dev_silver_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
+        {%- else -%} {{target.database}}_silver_db_alumno10
+        {%- endif -%}
+  +target_schema: snapshots
+
+vars:
+  "dbt_ml:audit_schema": "audit"
+  "dbt_ml:audit_table": "ml_models"
+
+
+
+
+

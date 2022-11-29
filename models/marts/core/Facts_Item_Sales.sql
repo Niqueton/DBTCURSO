@@ -18,7 +18,7 @@ base_promos1 as (
 ),
 
 base_users1 as (
-    select ID_DIM_USERS,NK_users from {{ ref('base_users') }}
+    select ID_DIM_USERS,NK_users from {{ ref('base_users_snapshot') }}
 ),
 
 base_addresses1 as (

@@ -1,6 +1,7 @@
 with base_promos1 as (
     select * from {{ source('src_sql_server', 'promos') }}
 ),
+
 base_promos2 as (
     select 
         ID_DIM_promos,

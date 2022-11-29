@@ -1,11 +1,22 @@
+
+{% snapshot base_users_snapshot %}
+
+{{
+        config(
+          unique_key='NK_users',
+          strategy='timestamp',
+          updated_at='Load_Date'
+        )
+    }}
+
 with base_users1 as (
     select * from {{ source('src_sql_server', 'users') }}
 )
 ,
 base_users2 as (
-    select 
-    	ID_DIM_users,
-    	User_ID as NK_users ,
+  select 
+    ID_DIM_users,
+    User_ID as NK_users ,
 		to_date(UPDATED_AT) as Update_Date ,
 		to_time(UPDATED_AT) as Update_Time,
 		ADDRESS_ID ,
@@ -15,10 +26,13 @@ base_users2 as (
 		PHONE_NUMBER ,
 		FIRST_NAME ,
 		EMAIL ,
-        to_date(_fivetran_synced) as Load_Date,
-        to_time(_fivetran_synced) as Load_Time 
+    to_date(_fivetran_synced) as Load_Date,
+    to_time(_fivetran_synced) as Load_Time 
 	from base_users1
 	where _fivetran_deleted is null
 )
 
 select * from base_users2
+
+
+{% endsnapshot %}
