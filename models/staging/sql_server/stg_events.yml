@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: base_events
+  - name: stg_events
     description: "Primera transformación de la tabla de origen events"
     columns:
       - name: id_web_interaction

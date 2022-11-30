@@ -5,7 +5,7 @@ with base_products1 as (
 base_products2 as (
     select 
     	ID_DIM_products,
-    	product_ID as NK_product ,
+    	product_ID as NK_products ,
 		PRICE as Product_base_Price ,
 		NAME as Product_Name,
         INVENTORY,
@@ -16,9 +16,11 @@ base_products2 as (
 			else 'high range'
 		end as Price_Range,
         to_date(_fivetran_synced) as Load_Date,
-        to_time(_fivetran_synced) as Load_Time 
+        to_time(_fivetran_synced) as Load_Time,
+		_fivetran_deleted 
 	from base_products1
-	where _fivetran_deleted is null
-)
 
-select * from base_products2
+),
+
+{{ fuera_deletes('base_products2','NK_products')}}
+

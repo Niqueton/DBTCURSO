@@ -1,4 +1,4 @@
-with lista as(
++with lista as(
     select 0 as Numero
 
     {% for i in range(1,60) %}
@@ -25,7 +25,7 @@ select
     , h.Numero as Hora
     , m.Numero as Minuto
     , s.Numero as Segundo
-    , h.Numero*100000+m.Numero*1000+s.Numero as ID_TIME
+    , h.Numero*10000+m.Numero*100+s.Numero as ID_TIME
     , case
         when h.Numero<7 then 'Madrugada'
         when h.Numero<12 then 'Mañana'

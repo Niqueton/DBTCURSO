@@ -5,7 +5,8 @@
         config(
           unique_key='NK_users',
           strategy='timestamp',
-          updated_at='Load_Date'
+          updated_at='Load_Date',
+          tags= ['SILVER']
         )
     }}
 

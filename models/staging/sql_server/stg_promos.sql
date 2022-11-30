@@ -9,10 +9,11 @@ base_promos2 as (
         discount as Order_discount_in_Dollars,
         status,
         to_date(_fivetran_synced) as Load_Date,
-        to_time(_fivetran_synced) as Load_Time
+        to_time(_fivetran_synced) as Load_Time,
+        _fivetran_deleted
     from base_promos1
-    where _fivetran_deleted is null
 
-)
 
-select * from base_promos2
+),
+
+{{ fuera_deletes('base_promos2','Promotion_Name')}}

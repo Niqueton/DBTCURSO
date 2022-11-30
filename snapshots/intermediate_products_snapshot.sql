@@ -1,10 +1,11 @@
-{% snapshot stg_products_snapshot %}
+{% snapshot intermediate_products_snapshot %}
 
 {{
         config(
           unique_key='NK_product',
           strategy='timestamp',
-          updated_at='Load_Date'
+          updated_at='Load_Date',
+          tags=['GOLD']
         )
     }}
 

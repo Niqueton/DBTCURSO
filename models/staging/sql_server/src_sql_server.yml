@@ -10,6 +10,7 @@ sources:
         {%- elif target.name == 'pro'-%} pro_bronze_db_alumno10  
         {%- else -%} {{target.database}}_bronze_db_alumno10
         {%- endif -%}
+    tags: ['BRONZE']
     tables:
       - name: addresses
         description: >

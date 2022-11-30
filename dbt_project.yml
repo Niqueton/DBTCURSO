@@ -54,6 +54,7 @@ models:
         {%- elif target.name == 'pro'-%} pro_silver_db_alumno10  
         {%- else -%} {{target.database}}_silver_db_alumno10
         {%- endif -%}
+      tags: ['SILVER']
       google_sheets:
         +schema: google_sheets
       sql_server:
@@ -68,10 +69,13 @@ models:
         {%- elif target.name == 'pro'-%} pro_gold_db_alumno10 
         {%- else -%} {{target.database}}_gold_db_alumno10
         {%- endif -%}
+      tags: ['GOLD']
       core:
         +schema: core
       distintas_areas:
         +schema: distintas_areas
+      intermediate:
+        +schema: intermediate
 seeds:
   +transient: false
   +target_database: |  
