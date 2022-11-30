@@ -2,7 +2,7 @@ with dim_customer_historica as (
     select * from {{ ref('dim_customer_historica') }}
 )
 
-select 
+select distinct
     ID_DIM_CUSTOMER ,
 	NK_customer,
 	Version,
