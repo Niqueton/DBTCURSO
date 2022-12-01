@@ -5,7 +5,7 @@
           unique_key='NK_orders',
           strategy='timestamp',
           updated_at='Load_Timestamp',
-          tags=['SILVER']
+          tags=['SILVER','SNAPSHOT','INCREMENTAL']
         )
     }}
 
@@ -19,18 +19,18 @@ base_order_items as (
 
     select
         o.ID_ORDER_TRACKING,
-        o.ADDRESS_ID,
+        o.NK_address,
         o.Received_at_Timestamp,
         o.Delivered_at_Timestamp,
         o.Estimated_Delivery_at_Timestamp,
         o.ORDER_COST_IN_DOLLARS,
         o.NK_orders,
         o.ORDER_TOTAL_IN_DOLLARS,
-        o.PROMO_ID,
+        o.Promotion_name,
         o.SHIPPING_COST_IN_DOLLARS,
         o.SHIPPING_SERVICE,
         o.STATUS,
-        o.TRACKING_ID,
+        o.DD_tracking,
         o.NK_users,
         case
             when o.ORDER_TOTAL_IN_DOLLARS < 25 then '0-25 USD'
@@ -51,18 +51,18 @@ base_order_items as (
     on o.NK_orders=oi.NK_orders
     group by 
         o.ID_ORDER_TRACKING,
-        o.ADDRESS_ID,
+        o.NK_address,
         o.Received_at_Timestamp,
         o.Delivered_at_Timestamp,
         o.Estimated_Delivery_at_Timestamp,
         o.ORDER_COST_IN_DOLLARS,
         o.NK_orders,
         o.ORDER_TOTAL_IN_DOLLARS,
-        o.PROMO_ID,
+        o.Promotion_Name,
         o.SHIPPING_COST_IN_DOLLARS,
         o.SHIPPING_SERVICE,
         o.STATUS,
-        o.TRACKING_ID,
+        o.DD_tracking,
         o.NK_users,
         o.Load_Timestamp,
         timestampdifF(hour,o.Received_at_Timestamp,o.Delivered_at_Timestamp),

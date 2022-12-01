@@ -10,6 +10,11 @@ models:
         description: "NK de orders en el sistema original"
       - name: number_of_units
         description: "Número de unidades de producto"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 10
       - name: load_date
         description: "Fecha de carga"
       - name: load_time

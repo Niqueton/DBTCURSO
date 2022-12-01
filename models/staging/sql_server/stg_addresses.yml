@@ -1,26 +1,25 @@
 version: 2
 
 models:
-  - name: base_addresses
-    description: "Primera transformación de la tabla de origen addresses"
+  - name: stg_addresses
+    description: "Modelo para añadir más detalle y versatilidad a la tabla addresses"
     columns:
       - name: id_shipping_address
         description: "Llave surrogada insertada previamente en snowflake"
-        tests:
-          - unique
-          - not_null
       - name: address
         description: "Dirección"
       - name: nk_address
         description: "NK_address del sistema original"
-        tests:
-          - not_null
       - name: state
         description: "Estado"
       - name: country
         description: "País"
       - name: zipcode
         description: "Código postal"
+      - name: city
+        description: "Ciudad"
+      - name: hour_zone
+        description: "Zona Horaria"
       - name: load_date
         description: "Fecha de carga"
       - name: load_time

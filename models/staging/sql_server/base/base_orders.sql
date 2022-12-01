@@ -1,4 +1,9 @@
-
+{{ config(
+    materialized='incremental',
+    unique_key = 'ID_ORDER_TRACKING',
+    tags=['SILVER','Incremental']
+    ) 
+    }}
 
 
 with base_orders1 as (
@@ -28,6 +33,13 @@ from base_orders1
 ),
 
 {{ fuera_deletes('auxi','NK_orders')}}
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
+
+{% endif %}
+
 
 
 

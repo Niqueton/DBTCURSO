@@ -2,10 +2,10 @@
 
 {{
         config(
-          unique_key='NK_product',
+          unique_key='NK_products',
           strategy='timestamp',
           updated_at='Load_Date',
-          tags=['GOLD']
+          tags=['GOLD','SNAPSHOT','INCREMENTAL']
         )
     }}
 
@@ -27,7 +27,7 @@ stg_security_stock as (
 stg_products1 as (
     select 
         p.ID_DIM_products,
-    	p.NK_product ,
+    	p.NK_products ,
 		p.Product_base_Price ,
 		p.Product_Name,
         p.INVENTORY as Stock,
@@ -37,10 +37,12 @@ stg_products1 as (
         p.Load_Date,
         p.Load_Time
     from base_products1 as p
+
     left join ProductDesc as pd
     on p.product_name=pd.product_name
+
     left join stg_security_stock s 
-    on p.NK_product=s.PRODUCT_ID
+    on p.NK_products=s.NK_products
 )
 
 select * from stg_products1

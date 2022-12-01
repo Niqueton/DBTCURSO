@@ -5,7 +5,7 @@ with base_products1 as (
 base_products2 as (
     select 
     	ID_DIM_products,
-    	product_ID as NK_products ,
+    	product_ID as NK_products,
 		PRICE as Product_base_Price ,
 		NAME as Product_Name,
         INVENTORY,
