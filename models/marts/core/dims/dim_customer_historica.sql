@@ -30,7 +30,7 @@ select
 from u
 
 left join stg_addresses as a
-on u.ADDRESS_ID=a.NK_address
+on u.NK_address=a.NK_address
 
 {% if is_incremental() %}
 
@@ -38,3 +38,18 @@ on u.ADDRESS_ID=a.NK_address
   or u.DBT_VALID_TO>= (select max(valid_from) from {{ this }})
 
 {% endif %}
+
+union 
+
+select 
+	 0
+	,'No aplica'
+	,0
+	,'No aplica'
+	,'No aplica'
+	,'No aplica'
+	,'No aplica'
+	,to_date('0001-01-01')
+	,to_time('00:00:00')
+	,to_date('0001-01-01')
+	,null

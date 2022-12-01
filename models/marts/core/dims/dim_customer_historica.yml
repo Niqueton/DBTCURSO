@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: dim_customer_historica
+    description: "Dimensión de clientes con el histórico"
+    columns:
+      - name: id_dim_customer
+        description: "Llave surrogada de clientes"
+      - name: nk_customer
+        description: "Identificador natural de cliente"
+      - name: version
+        description: "Versión de un cliente"
+      - name: main_address
+        description: "Dirección principal"
+      - name: complete_name
+        description: "Nombre completo"
+      - name: phone_number
+        description: "Número de teléfono"
+      - name: email
+        description: "Correo electrónico"
+      - name: load_date
+        description: "Fecha de carga"
+      - name: load_time
+        description: "Hora de carga"
+      - name: valid_from
+        description: "Válido desde"
+      - name: valid_to
+        description: "Valido hasta ( es null si el registro esta activo)"

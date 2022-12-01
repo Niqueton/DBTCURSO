@@ -20,7 +20,7 @@ base_users2 as (
     User_ID as NK_users ,
 		to_date(UPDATED_AT) as Update_Date ,
 		to_time(UPDATED_AT) as Update_Time,
-		ADDRESS_ID ,
+		ADDRESS_ID as NK_address,
 		LAST_NAME ,
 		to_date(created_AT) as Create_Date ,
 		to_time(created_AT) as Create_Time,

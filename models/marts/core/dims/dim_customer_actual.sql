@@ -17,17 +17,5 @@ select distinct
 from dim_customer_historica
 where VALID_TO is null
 
-union
 
-select 
-	 0
-	,'No aplica'
-	,0
-	,'No aplica'
-	,'No aplica'
-	,'No aplica'
-	,'No aplica'
-	,to_date('0001-01-01')
-	,to_time('00:00:00')
-	,to_date('0001-01-01')
 
