@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: intermediate_products_snapshot
+    description: "Tabla intermedia previa a la dimensión producto"
+    columns:
+      - name: id_dim_products
+        description: "Llave surrogada introducida en paso previo en snowflake"
+      - name: nk_products
+        description: "Llave natural que identifica a un producto"
+      - name: product_base_price
+        description: "Precio base de cada producto"
+      - name: product_name
+        description: "Nombre del producto"
+      - name: stock
+        description: "Inventario diario"
+      - name: price_range
+        description: "Rango de precio del producto"
+      - name: description
+        description: "Descripción del producto"
+      - name: security_stock
+        description: "Stock de seguridad"
+      - name: load_date
+        description: "Fecha de carga al sistema informacional"
+      - name: load_time
+        description: "Hora del carga al sistema informacional"
+      - name: dbt_scd_id
+        description: "Campo de dbt para el funcionamiento de la snapshot"
+      - name: dbt_updated_at
+        description: "Campo de dbt para el funcionamiento de la snapshot"
+      - name: dbt_valid_from
+        description: "Fecha de actualización del producto"
+      - name: dbt_valid_to
+        description: "Fecha hasta la que es válida esta versión del producto"

@@ -4,13 +4,13 @@
     ) 
     }}
 
-with stg_products_snapshot as (
-    select * from {{ ref('stg_products_snapshot') }}
+with intermediate_products_snapshot as (
+    select * from {{ ref('intermediate_products_snapshot') }}
 )
 select 
         ID_DIM_products,
-        rank()over(partition by NK_product order by DBT_VALID_FROM desc) as Version,
-      	NK_product ,
+        rank()over(partition by NK_products order by DBT_VALID_FROM desc) as Version,
+      	NK_products ,
 	    	Product_base_Price ,
 	    	Product_Name,
         Price_Range,
@@ -20,11 +20,7 @@ select
         Load_Time,
         DBT_VALID_FROM as Valid_from,
         DBT_VALID_TO as Valid_to
-from stg_products_snapshot
-
-
-
-
+from intermediate_products_snapshot
 
 
 

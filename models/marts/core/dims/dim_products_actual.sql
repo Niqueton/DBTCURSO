@@ -3,9 +3,9 @@ with dim_products_historica as (
 )
 select 
         ID_DIM_products,
-      	NK_product ,
-	    Product_base_Price ,
-	    Product_Name,
+      	NK_products ,
+	      Product_base_Price ,
+	      Product_Name,
         Price_Range,
         Description,
         Security_Stock,

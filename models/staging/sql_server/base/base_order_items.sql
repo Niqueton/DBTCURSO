@@ -26,7 +26,7 @@ base_order_items2 as (
 
 {% if is_incremental() %}
 
-  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
+  where Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
 
 {% endif %}
 
