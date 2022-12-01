@@ -1,17 +1,13 @@
-{% snapshot stg_order_tracking_snapshot %}
-
-{{
-        config(
-          unique_key='NK_orders',
-          strategy='timestamp',
-          updated_at='Load_Timestamp',
-          tags=['SILVER','SNAPSHOT','INCREMENTAL']
-        )
+{{ config(
+    materialized='incremental',
+    unique_key = 'ID_ORDER_TRACKING',
+    tags=['SILVER','Incremental']
+    ) 
     }}
 
 
 with base_orders1 as (
-    select * from {{ ref('base_orders') }}
+    select * from {{ ref('base_orders_snapshot') }}
 ),
 base_order_items as (
     select * from {{ ref('base_order_items') }}
@@ -44,8 +40,9 @@ base_order_items as (
         count(oi.NK_products) as Number_of_different_items,
         sum(oi.NUMBER_OF_UNITS) as Total_number_of_items,
         o.Load_Timestamp,
-        timestampdifF(hour,o.Received_at_Timestamp,o.Delivered_at_Timestamp) as Lag_respect_received_order,
-        timestampdifF(hour,o.Estimated_delivery_at_timestamp,o.Delivered_at_Timestamp) as Lag_respect_estimated_delivery_order
+        o.dbt_valid_from as valid_from,
+        o.dbt_valid_to as valid_to
+    
     from base_orders1 o 
     left join base_order_items oi 
     on o.NK_orders=oi.NK_orders
@@ -66,6 +63,12 @@ base_order_items as (
         o.NK_users,
         o.Load_Timestamp,
         timestampdifF(hour,o.Received_at_Timestamp,o.Delivered_at_Timestamp),
-        timestampdifF(hour,o.Estimated_delivery_at_timestamp,o.Delivered_at_Timestamp)
+        timestampdifF(hour,o.Estimated_delivery_at_timestamp,o.Delivered_at_Timestamp),
+        o.dbt_valid_from as valid_from,
+        o.dbt_valid_to as valid_to
 
-{% endsnapshot %}
+{% if is_incremental() %}
+
+  where o.Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
+
+{% endif %}

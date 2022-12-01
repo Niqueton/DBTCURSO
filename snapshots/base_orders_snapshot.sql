@@ -1,8 +1,12 @@
-{{ config(
-    materialized='incremental',
-    unique_key = 'ID_ORDER_TRACKING',
-    tags=['SILVER','Incremental']
-    ) 
+{% snapshot base_orders_snapshot %}
+
+{{
+        config(
+          unique_key='NK_orders',
+          strategy='timestamp',
+          updated_at='Load_Timestamp',
+          tags=['SILVER','SNAPSHOT','INCREMENTAL']
+        )
     }}
 
 
@@ -34,11 +38,7 @@ from base_orders1
 
 {{ fuera_deletes('auxi','NK_orders')}}
 
-{% if is_incremental() %}
-
-  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
-
-{% endif %}
+{% endsnapshot %}
 
 
 

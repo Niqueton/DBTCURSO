@@ -8,7 +8,7 @@
 
 
 with base_orders1 as (
-    select * from {{ ref('base_orders') }}
+    select * from {{ ref('base_orders_snapshot') }}
 ),
 
 base_order_items1 as (

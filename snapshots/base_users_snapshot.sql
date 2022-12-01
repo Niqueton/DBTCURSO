@@ -6,7 +6,7 @@
           unique_key='NK_users',
           strategy='timestamp',
           updated_at='Load_Date',
-          tags= ['SILVER']
+          tags= ['SILVER','SNAPSHOT']
         )
     }}
 

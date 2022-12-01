@@ -57,8 +57,8 @@ select
     , ot.ORDER_TOTAL_IN_DOLLARS
     , ot.SHIPPING_COST_IN_DOLLARS
     , ot.STATUS
-    , ot.Lag_respect_received_order
-    , ot.Lag_respect_estimated_delivery_order
+    , timestampdifF(hour,ot.Received_at_Timestamp,ot.Delivered_at_Timestamp) as Lag_respect_received_order
+    , timestampdifF(hour,ot.Estimated_delivery_at_timestamp,ot.Delivered_at_Timestamp) as Lag_respect_estimated_delivery_order
     , ot.Load_Timestamp
     , case 
         when e.PAGE_URL is null then 'Tienda física'

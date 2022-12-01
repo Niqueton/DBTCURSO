@@ -26,7 +26,7 @@ sources:
             description: >
               Llave primaria del sistema transaccional.
             tests:
-             - not_null
+              - not_null
           - name: zipcode
             description: >
               Código postal de la dirección.
@@ -57,8 +57,8 @@ sources:
             description: >
               LLave surrogada
             tests:
-             - unique
-             - not_null
+              - unique
+              - not_null
           - name: event_id
             description: >
               LLave primaria del sistema operacional.
@@ -76,6 +76,10 @@ sources:
           - name: user_id
             description: >
               Identificador de usuario en el sistema operacional.
+            tests:
+              - relationships:
+                  to: source('src_sql_server','users')
+                  field: user_id
           - name: product_id
             description: >
               Identificador de producto en el sistema operacional.
@@ -85,6 +89,9 @@ sources:
           - name: created_at
             description: >
               Fecha y hora en la que ocurrió el hecho.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_ntz
           - name: order_id
             description: >
               Identificador de pedidos en el sistema operacional.
@@ -99,21 +106,25 @@ sources:
         description: >
           Tabla en la que se detallan los productos de cada pedido.
         columns:
-
           - name: order_id
             description: >
               Identificador de pedidos en el sistema operacional.
             tests:
-             - not_null
+              - not_null
+              - relationships:
+                  to: source('src_sql_server','orders')
+                  field: order_id
           - name: product_id
             description: >
               Identificador de producto en el sistema operacional.
             tests:
-             - not_null
+              - not_null
+              - relationships:
+                  to: source('src_sql_server','products')
+                  field: product_id
           - name: quantity
             description: >
               Unidades de cada producto.
-
           - name: _fivetran_deleted
             description: >
               Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
@@ -129,13 +140,13 @@ sources:
             description: >
               Llave surrogada
             tests:
-             - unique
-             - not_null
+              - unique
+              - not_null
           - name: order_id
             description: >
               Identificador de pedidos en el sistema operacional.
             tests:
-             - not_null
+              - not_null
           - name: shipping_service
             description: >
               Empresa con la que se envían los pedidos.
@@ -144,16 +155,20 @@ sources:
               Coste del envío.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: number
+                  column_type: float
           - name: address_id
             description: >
               Identificador de la dirección en el sistema operacional.
+            tests:
+              - relationships:
+                  to: source('src_sql_server','addresses')
+                  field: address_id
           - name: created_at
             description: >
               Fecha y hora en la que se recibió el pedido.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: timestamp
+                  column_type: timestamp_tz
           - name: promo_id
             description: >
               Identificador de las promociones en el sistema transaccional.
@@ -162,28 +177,32 @@ sources:
               Fecha y hora de entrega estimada.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: timestamp
+                  column_type: timestamp_tz
           - name: order_cost
             description: >
               Coste del pedido sin tener en cuenta el envío.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: number
+                  column_type: float
           - name: user_id
             description: >
               Identificador de los usuarios en el sistema transaccional.
+            tests:
+              - relationships:
+                  to: source('src_sql_server','users')
+                  field: user_id
           - name: order_total
             description: >
               Coste total del pedido.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: number
+                  column_type: float
           - name: delivered_at
             description: >
               Fecha y hora de entrega.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: timestamp
+                  column_type: timestamp_tz
           - name: tracking_id
             description: >
               Identificador de seguimiento de pedido en el sistema operacional.
@@ -214,17 +233,22 @@ sources:
             description: >
               Identificador de producto e el sistema operacional.
             tests:
-             - unique
              - not_null
           - name: price
             description: >
               Precio base del producto.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: float
           - name: name
             description: >
               Nombre del producto.
           - name: inventory
             description: >
               Inventario del producto.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: number
           - name: _fivetran_deleted
             description: >
               Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
@@ -246,14 +270,19 @@ sources:
             description: >
               Identificador de la promoción en el sistema operacional.
             tests:
-             - unique
              - not_null
           - name: discount
             description: >
               Descuento aplicado por pedido de cada tipo de promoción.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: number
           - name: status
             description: >
               Estado de la promoción.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_in_set:
+                  value_set: ['inactive','active'] 
           - name: _fivetran_deleted
             description: >
               Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
@@ -275,11 +304,13 @@ sources:
             description: >
               Identificador de usuario en el sistema transaccional.
             tests:
-             - unique
              - not_null
           - name: updated_at
             description: >
               Fecha y hora de actualización.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_tz
           - name: address_id
             description: >
               Identificador de la dirección en el sistema transaccional.
@@ -289,6 +320,9 @@ sources:
           - name: created_at
             description: >
               Fecha y hora de creación del registro.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_tz
           - name: phone_number
             description: >
               Número de teléfono.
