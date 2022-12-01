@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: dim_products_actual
+    description: "Dimensión de producto solo con las versiones activas de estos"
+    columns:
+      - name: id_dim_products
+        description: "Llave primaria de la dimensión producto"
+      - name: nk_products
+        description: "Identificador natural de producto"
+      - name: product_base_price
+        description: "Precio base del producto"
+      - name: product_name
+        description: "Nombre del producto"
+      - name: price_range
+        description: "Rango de precio"
+      - name: description
+        description: "Descripción del producto"
+      - name: security_stock
+        description: "Stock de seguridad"

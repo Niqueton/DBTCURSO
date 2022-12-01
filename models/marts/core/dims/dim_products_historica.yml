@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: dim_products_historica
+    description: "Tabla de dimensiçon producto que registra todas las actualizaciones que han sufrido los mismos"
+    columns:
+      - name: id_dim_products
+        description: "Llave primaria de la dimensión producto"
+      - name: version
+        description: "Versión de un mismo producto"
+      - name: nk_products
+        description: "Identificador natural de producto"
+      - name: product_base_price
+        description: "Precio base del producto"
+      - name: product_name
+        description: "Nombre del producto"
+      - name: price_range
+        description: "Rango de precio"
+      - name: description
+        description: "Descripción del producto"
+      - name: security_stock
+        description: "Stock de seguridad"
+      - name: load_date
+        description: "Fecha de carga"
+      - name: load_time
+        description: "Hora de carga"
+      - name: valid_from
+        description: "Válido desde"
+      - name: valid_to
+        description: "Válido hasta ( si este campo es nulo significa que la versión del producto esta activa)"

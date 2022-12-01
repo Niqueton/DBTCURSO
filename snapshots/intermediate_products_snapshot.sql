@@ -27,7 +27,7 @@ stg_security_stock as (
 stg_products1 as (
     select 
         p.ID_DIM_products,
-    	s.NK_products ,
+    	p.NK_products ,
 		p.Product_base_Price ,
 		p.Product_Name,
         p.INVENTORY as Stock,

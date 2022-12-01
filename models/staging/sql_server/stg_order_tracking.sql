@@ -39,13 +39,12 @@ base_order_items as (
         end as RANGE_ORDER_TOTAL_USD,
         count(oi.NK_products) as Number_of_different_items,
         sum(oi.NUMBER_OF_UNITS) as Total_number_of_items,
-        o.Load_Timestamp,
-        o.dbt_valid_from as valid_from,
-        o.dbt_valid_to as valid_to
+        o.Load_Timestamp
     
     from base_orders1 o 
     left join base_order_items oi 
     on o.NK_orders=oi.NK_orders
+    where valid_to is null
     group by 
         o.ID_ORDER_TRACKING,
         o.NK_address,
@@ -63,12 +62,11 @@ base_order_items as (
         o.NK_users,
         o.Load_Timestamp,
         timestampdifF(hour,o.Received_at_Timestamp,o.Delivered_at_Timestamp),
-        timestampdifF(hour,o.Estimated_delivery_at_timestamp,o.Delivered_at_Timestamp),
-        o.dbt_valid_from as valid_from,
-        o.dbt_valid_to as valid_to
+        timestampdifF(hour,o.Estimated_delivery_at_timestamp,o.Delivered_at_Timestamp)
+
 
 {% if is_incremental() %}
 
-  where o.Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
+  having o.Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
 
 {% endif %}

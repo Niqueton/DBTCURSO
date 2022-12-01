@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_item_sales
+    description: "Modelo intermedio para tabla de hechos de pedidos a nivel de producto"
+    columns:
+      - name: id_item_sales
+        description: "Llave surrogada "
+      - name: quantity_sold
+        description: "Cantidad de producto vendida en el pedido"
+      - name: id_dim_products
+        description: "Llave surrogada introducida en paso previo en snowflake"
+      - name: load_timestamp
+        description: "Fecha de carga"
+      - name: nk_orders
+        description: "Llave natural del pedido"
+      - name: nk_address
+        description: "Llave natural de la dirección"
+      - name: promotion_name
+        description: "Nombre de la promoción aplicada"
+      - name: nk_users
+        description: "Llave antural de usuario"
+      - name: received_at_timestamp
+        description: "Fecha de recepción del pedido"
+      - name: total_base_price_in_dollars
+        description: "Precio total en dolares"
+      - name: shipping_ponderate_cost_in_dollars
+        description: "Gasto de envío ponderado en dolares"
+      - name: order_cost_in_dollars
+        description: "Precio base en dolares"
