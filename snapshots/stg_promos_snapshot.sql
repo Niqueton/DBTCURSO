@@ -1,3 +1,16 @@
+{% snapshot stg_promos_snapshot %}
+
+{{
+        config(
+          unique_key='Promotion_Name',
+          strategy='timestamp',
+          updated_at='Load_Date',
+          tags=['SILVER','SNAPSHOT','INCREMENTAL']
+        )
+    }}
+
+
+
 with base_promos1 as (
     select * from {{ source('src_sql_server', 'promos') }}
 ),
@@ -17,3 +30,6 @@ base_promos2 as (
 ),
 
 {{ fuera_deletes('base_promos2','Promotion_Name')}}
+
+
+{% endsnapshot %}

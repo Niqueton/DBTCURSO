@@ -10,19 +10,27 @@ models:
         description: " Fecha en la que se produjo la visita web"
       - name: produced_at_time
         description: "Hora a la que tuvo lugar la visita  "
-      - name: event_id
+      - name: NK_events
         description: "Llave natural en el sistema original "
       - name: event_type
         description: "Tipo de evento web"
-      - name: order_id
+      - name: NK_orders
         description: "Llave natural de pedidos en el sistema original"
+        tests:
+          - relationships:
+              to: source('src_sql_server','orders')
+              field: order_id
       - name: page_url
         description: "Link de página web visitada"
-      - name: product_id
+      - name: NK_products
         description: "Llave natural de productos en el sistema original"
-      - name: session_id
+        tests:
+          - relationships:
+              to: source('src_sql_server','products')
+              field: product_id
+      - name: DD_session
         description: "Clave de la sesión"
-      - name: user_id
+      - name: NK_users
         description: "Llave natural de usuario en el sistema original"
       - name: load_date
         description: "Fecha de carga"

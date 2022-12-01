@@ -24,7 +24,7 @@ auxi as (
         ORDER_COST as ORDER_COST_IN_DOLLARS,
         ORDER_ID as NK_orders,
         ORDER_TOTAL as ORDER_TOTAL_IN_DOLLARS,
-        PROMO_ID as Promotion_Name,
+        {{ cambio_substring('PROMO_ID',"''","null") }} as Promotion_Name,
         SHIPPING_COST as SHIPPING_COST_IN_DOLLARS,
         SHIPPING_SERVICE,
         STATUS,

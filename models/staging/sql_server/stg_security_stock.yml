@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: stg_security_stock
+    description: "Modelo que sirve para calcular un stock de seguridad para cada producto en función de las ventas del último mes"
+    columns:
+      - name: nk_products
+        description: "Identificador natural del producto"
+      - name: security_stock
+        description: "Stock de seguridad"

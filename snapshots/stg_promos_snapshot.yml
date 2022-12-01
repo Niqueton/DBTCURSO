@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_promos
+  - name: stg_promos_snapshot
     description: "Primera transformación de la tabla original promos"
     columns:
       - name: id_dim_promos
