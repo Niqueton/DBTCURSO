@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_momento_del_dia
+    description: "Dimensión momento del día"
+    columns:
+      - name: time_of_the_day
+        description: "Hora del día en formato time"
+      - name: hora
+        description: "Hora"
+      - name: minuto
+        description: "minuto"
+      - name: segundo
+        description: "Segundo"
+      - name: id_dim_time
+        description: "Identificador dimensión tiempo"
+      - name: parte_del_dia
+        description: "parte del día"

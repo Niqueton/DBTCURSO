@@ -23,10 +23,11 @@ us_holidays as  (
 
 select
       d.date_day
-    , year(d.date_day)*10000+month(d.date_day)*100+day(d.date_day) as id_date
+    , {{ fecha_id('d.date_day')}} as id_date
+    , (concat(day(d.date_day),' ',monthname(d.date_day),' ',year(d.date_day))) as Fecha_oficial
     , year(d.date_day) as anio
     , month(d.date_day) as mes
-    ,monthname(d.date_day) as desc_mes
+    , monthname(d.date_day) as desc_mes
     , year(d.date_day)*100+month(d.date_day) as id_anio_mes
     , d.date_day-1 as dia_previo
     , year(d.date_day)||weekiso(d.date_day)||dayofweek(d.date_day) as anio_semana_dia

@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: dim_date_
+    description: "Dimensión fecha"
+    columns:
+      - name: date_day
+        description: "Fecha en formato date"
+      - name: id_date
+        description: "Id de fecha"
+      - name: anio
+        description: "Año"
+      - name: mes
+        description: "Mes"
+      - name: desc_mes
+        description: "Nombre mes"
+      - name: id_anio_mes
+        description: "Llave foránea de tabla año mes"
+      - name: dia_previo
+        description: "Día previo"
+      - name: anio_semana_dia
+        description: "Año semana y día"
+      - name: semana
+        description: "Semana del año"
+      - name: holiday_indicator
+        description: "Indicador de vacaciones"
+      - name: trimestre
+        description: "trimestre"

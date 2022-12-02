@@ -1,6 +1,7 @@
 {{ config(
     materialized='incremental',
     unique_key = 'ID_DIM_products',
+    tags= ['INCREMENTAL']
     ) 
     }}
 
@@ -16,8 +17,8 @@ select
         Price_Range,
         Description,
         Security_Stock,
-        Load_Date,
-        Load_Time,
+	      {{ fecha_id('LOAD_DATE') }} as ID_LOAD_DATE ,
+	      {{ time_id('LOAD_TIME') }} as ID_LOAD_TIME,
         DBT_VALID_FROM as Valid_from,
         DBT_VALID_TO as Valid_to
 from intermediate_products_snapshot
@@ -32,4 +33,4 @@ from intermediate_products_snapshot
 
 union 
 
-select 0,0,'No aplica',0,'No aplica','No aplica','No aplica',0,to_date('2000-01-03'),to_time('18:15:26'),to_date('2000-03-01'),null
+select 0,0,'No aplica',0,'No aplica','No aplica','No aplica',0,0,0,to_date('2000-03-01'),null

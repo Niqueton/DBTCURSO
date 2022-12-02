@@ -13,8 +13,8 @@ dim_products as (
 
     select 
         e.ID_WEB_INTERACTION,
-        year(e.Produced_at_Date)*10000+month(e.Produced_at_Date)*100+day(e.Produced_at_Date) as ID_PRODUCED_AT_DATE,
-        hour(e.Produced_at_Time)*10000+minute(e.Produced_at_Time)*100+second(e.Produced_at_Time) as ID_PRODUCED_AT_TIME,
+        {{ fecha_id('e.Produced_at_date')}} as ID_PRODUCED_AT_DATE,
+        {{ time_id('e.Produced_at_time')}} as ID_PRODUCED_AT_TIME,
         e.EVENT_ID,
         e.EVENT_TYPE,
         o.ID_DIM_ORDERS

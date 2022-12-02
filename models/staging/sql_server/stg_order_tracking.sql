@@ -22,7 +22,7 @@ base_order_items as (
         o.ORDER_COST_IN_DOLLARS,
         o.NK_orders,
         o.ORDER_TOTAL_IN_DOLLARS,
-        o.Promotion_name,
+        {{ cambio_valor('o.Promotion_name','null',"'No aplica'") }} as Promotion_Name,
         o.SHIPPING_COST_IN_DOLLARS,
         o.SHIPPING_SERVICE,
         o.STATUS,

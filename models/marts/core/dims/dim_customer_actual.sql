@@ -10,8 +10,6 @@ select distinct
 	Complete_Name,
 	PHONE_NUMBER ,
 	EMAIL ,
-	LOAD_DATE ,
-	LOAD_TIME ,
 	VALID_FROM
 
 from dim_customer_historica

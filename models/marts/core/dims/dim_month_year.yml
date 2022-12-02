@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_month_year
+    description: "Dimensión mes año"
+    columns:
+      - name: id_anio_mes
+        description: "identificador de mes y año"
+      - name: anio
+        description: "año"
+      - name: mes
+        description: "mes"
+      - name: desc_mes
+        description: "Nombre mes"
+      - name: desc_anio_mes
+        description: "Nombre mes y año"
+      - name: trimestre
+        description: "trimestre"

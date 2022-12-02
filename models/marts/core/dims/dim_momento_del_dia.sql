@@ -1,4 +1,4 @@
-+with lista as(
+with lista as(
     select 0 as Numero
 
     {% for i in range(1,60) %}
@@ -20,12 +20,11 @@ segundo as (
 )
 
 select 
-
-      to_time(concat(h.Numero,':',m.Numero,':',s.Numero)) as time
+      to_time(concat(h.Numero,':',m.Numero,':',s.Numero)) as time_of_the_day
     , h.Numero as Hora
     , m.Numero as Minuto
     , s.Numero as Segundo
-    , h.Numero*10000+m.Numero*100+s.Numero as ID_TIME
+    , h.Numero*10000+m.Numero*100+s.Numero as ID_DIM_TIME
     , case
         when h.Numero<7 then 'Madrugada'
         when h.Numero<12 then 'Mañana'

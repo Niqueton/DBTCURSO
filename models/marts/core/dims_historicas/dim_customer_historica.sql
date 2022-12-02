@@ -22,8 +22,8 @@ select
 	concat(u.FIRST_NAME,' ',u.LAST_NAME) as Complete_Name,
 	u.PHONE_NUMBER ,
 	u.EMAIL ,
-	u.LOAD_DATE ,
-	u.LOAD_TIME ,
+	{{ fecha_id('u.LOAD_DATE') }} as ID_LOAD_DATE,
+	{{ time_id('u.LOAD_TIME') }} as ID_LOAD_TIME,
 	u.DBT_VALID_FROM as VALID_FROM,
 	u.DBT_VALID_TO as VALID_TO
 
@@ -49,7 +49,7 @@ select
 	,'No aplica'
 	,'No aplica'
 	,'No aplica'
-	,to_date('0001-01-01')
-	,to_time('00:00:00')
+	,0
+	,0
 	,to_date('0001-01-01')
 	,null

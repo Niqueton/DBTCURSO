@@ -1,8 +1,10 @@
 {% macro cambio_valor(columna,actual,cambio) %}
 
 case
-    when {{ columna }}={{ actual }} then {{ cambio }}
+
+    when ifnull({{ columna }},'pepon')=ifnull({{ actual }},'pepon') then {{ cambio }}
     else {{ columna }}
+
 end
 
 {% endmacro %}

@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_shipping_addresses
+    description: "Dimensión que guarda todas las direcciones"
+    columns:
+      - name: id_dim_shipping_address
+        description: "Identificador de la dimensión"
+      - name: address
+        description: "Dirección"
+      - name: nk_address
+        description: "NK_address del sistema original"
+      - name: state
+        description: "Estado"
+      - name: country
+        description: "País"
+      - name: city
+        description: "Ciudad"
+      - name: zipcode
+        description: "Código postal"
+      - name: time_zone
+        description: "Zona horaria"
+      - name: id_load_date
+        description: "id de Fecha de carga"
+      - name: id_load_time
+        description: "id de momento del dia de carga"
