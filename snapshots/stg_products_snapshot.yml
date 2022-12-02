@@ -1,6 +1,6 @@
 version: 2
 
-models:
+snapshots:
   - name: intermediate_products_snapshot
     description: "Tabla intermedia previa a la dimensión producto"
     columns:

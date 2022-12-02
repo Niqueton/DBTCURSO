@@ -7,21 +7,16 @@ models:
       - name: id_shipping_address
         description: "Llave surrogada insertada previamente en snowflake"
         tests:
-          - unique
-          - not_null
       - name: address
         description: "Dirección"
       - name: nk_address
         description: "NK_address del sistema original"
         tests:
-          - not_null
       - name: state
         description: "Estado"
       - name: country
         description: "País"
       - name: zipcode
         description: "Código postal"
-      - name: load_date
+      - name: load_timestamp
         description: "Fecha de carga"
-      - name: load_time
-        description: "Hora de carga"

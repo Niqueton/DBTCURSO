@@ -1,7 +1,7 @@
 version: 2
 
-models:
-  - name: base_orders
+snapshots:
+  - name: base_orders_snapshot
     description: "Primera transformación de la tabla de origen orders"
     columns:
       - name: id_order_tracking

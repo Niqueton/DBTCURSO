@@ -2,7 +2,7 @@
 {{ config(
     materialized='incremental',
     unique_key = 'ID_ITEM_SALES',
-    tags=['SILVER','Incremental']
+    tags=['SILVER','INCREMENTAL']
     ) 
     }}
 

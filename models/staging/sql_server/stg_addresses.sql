@@ -1,3 +1,12 @@
+{{ config(
+    materialized='incremental',
+    unique_key = 'ID_DIM_SHIPPING_ADDRESS',
+    tags=['SILVER','INCREMENTAL']
+    ) 
+    }}
+
+
+
 with base_addresses as (
     select * from {{ ref('base_addresses') }}
 ),
@@ -10,7 +19,7 @@ cityzipcode as (
 
 stg_addresses1 as (
     select 
-        a.ID_SHIPPING_ADDRESS,
+        a.ID_DIM_SHIPPING_ADDRESS,
         a.ADDRESS,
         a.NK_address,
         a.STATE,
@@ -18,8 +27,7 @@ stg_addresses1 as (
         a.ZIPCODE,
         regexp_replace(c.city,'"') as city,
         h.hour_zone,
-        a.Load_Date,
-        a.Load_Time
+        a.Load_Timestamp
         
     from base_addresses as a
     left join husos_horarios as h
@@ -30,3 +38,9 @@ stg_addresses1 as (
 )
 
 select * from stg_addresses1
+
+{% if is_incremental() %}
+
+  where a.Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
+
+{% endif %}

@@ -1,7 +1,7 @@
 version: 2
 
-models:
-  - name: base_users
+snapshots:
+  - name: base_users_snapshot
     description: "Tabla de usuarios en el sistema de origen"
     columns:
       - name: id_dim_users

@@ -1,4 +1,4 @@
-{% macro cambio_substring(columna,actual,cambio) %}
+{% macro cambio_valor(columna,actual,cambio) %}
 
 case
     when {{ columna }}={{ actual }} then {{ cambio }}

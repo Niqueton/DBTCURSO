@@ -44,7 +44,7 @@ base_order_items as (
     from base_orders1 o 
     left join base_order_items oi 
     on o.NK_orders=oi.NK_orders
-    where valid_to is null
+    where dbt_valid_to is null
     group by 
         o.ID_ORDER_TRACKING,
         o.NK_address,
