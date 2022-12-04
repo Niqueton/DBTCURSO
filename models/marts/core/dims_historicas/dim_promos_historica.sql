@@ -6,7 +6,7 @@ select
         ID_DIM_promos,
         (rank() over(partition by Promotion_Name order by DBT_VALID_FROM desc)) as Version,
         Promotion_Name,
-        Order_discount_in_Dollars,
+        Order_discount_USD,
         status,
         DBT_VALID_FROM AS VALID_FROM,
         DBT_VALID_TO as VALID_TO

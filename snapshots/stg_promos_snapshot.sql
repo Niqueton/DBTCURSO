@@ -19,7 +19,7 @@ base_promos2 as (
     select 
         ID_DIM_promos,
         promo_id as Promotion_Name,
-        discount as Order_discount_in_Dollars,
+        discount as Order_discount_USD,
         status,
         to_date(_fivetran_synced) as Load_Date,
         to_time(_fivetran_synced) as Load_Time,

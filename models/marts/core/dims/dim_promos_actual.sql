@@ -5,7 +5,7 @@ with base_promos1 as (
 select 
         ID_DIM_promos,
         Promotion_Name,
-        Order_discount_in_Dollars,
+        Order_discount_USD,
         VALID_FROM
 from base_promos1
 where VALID_TO is null
