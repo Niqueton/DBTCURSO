@@ -2,7 +2,7 @@
     config(
         materialized='incremental',
         unique_key='ID_ITEM_SALES',
-        tags=['INCREMENTAL']
+        tags=['INCREMENTAL','FACT_TABLE']
     )
 }}
 

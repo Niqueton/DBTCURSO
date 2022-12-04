@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: facts_web_interaction
+    description: "tabla de hechos de las interacciones en la página web"
+    columns:
+      - name: id_produced_at_time
+        description: "Identificador de tiempo del día"
+      - name: nk_events
+        description: "Identificador natural de eventos"
+      - name: event_type
+        description: "Tipo de evento web"
+      - name: id_dim_orders
+        description: "Llave primaria de la dimensión order"
+      - name: dd_order
+        description: "Identificador de la dimensión degenerada de pedido"
+      - name: page_url
+        description: "Link de página web visitada"
+      - name: id_dim_products
+        description: "Llave primaria de la dimensión producto"
+      - name: id_dim_session
+        description: "Llave de la dimensión sesión"
+      - name: id_dim_customer
+        description: "Llave surrogada de clientes"
+      - name: load_timestamp
+        description: "Timestamp de carga"
