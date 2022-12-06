@@ -28,6 +28,9 @@ dim_customer as (
 
 stg_events as (
     select * from {{ ref('stg_events') }}
+),
+intermediate_session as (
+    select * from {{ ref('intermediate_session') }}
 )
 
 
@@ -45,6 +48,7 @@ select
     , {{ time_id('to_time(ot.Delivered_at_Timestamp)') }} as ID_DELIVERED_TIME
     , {{ fecha_id('to_date(ot.Estimated_delivery_at_Timestamp)') }} as ID_ESTIMATED_DELIVERY_DATE
     , {{ time_id('to_time(ot.Estimated_delivery_at_Timestamp)') }} as ID_ESTIMATED_DELIVERY_TIME
+    , s.ID_DIM_session
     , ot.ORDER_COST_USD
     , ot.ORDER_TOTAL_USD
     , ot.SHIPPING_COST_USD
@@ -73,6 +77,8 @@ on ot.Promotion_Name=p.Promotion_Name
 left join dim_customer c 
 on ot.NK_users=c.NK_customer
 
+left join intermediate_session s 
+on e.DD_session=s.DD_session
 
 {% if is_incremental() %}
 

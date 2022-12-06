@@ -13,33 +13,33 @@ select
 
         {{ dbt_utils.surrogate_key(['count(e.NK_products)','round(timediff(minute,min(e.Produced_at_time),max(e.Produced_at_Time)),0)','Indicador_compra']) }} as ID_DIM_session,
         e.DD_session,
-        count(e.NK_products) as Num_productos_visitados,
+        count(distinct e.NK_products) as Num_productos_visitados,
 
         case
-            {% for i in range(0,2010,10) %}
+            {% for i in range(0,3010,10) %}
 
                 when
-                    round(timediff(minute,min(e.Produced_at_time),max(e.Produced_at_Time)),0) < {{ i }}
+                    round(timestampdiff(minute,min(e.Produced_at_Timestamp),max(e.Produced_at_Timestamp)),0) < {{ i }}
 
                  then concat(({{ i }}-10)::varchar,'-',{{i}}::varchar,' minutos')
 
             {% endfor %}
 
-                else ' +2000 minutos'
+                else ' +3000 minutos'
 
         end as Tiempo_sesion_minutos,
 
         case
-            {% for i in range(0,34) %}
+            {% for i in range(0,49) %}
 
                 when
-                    timediff(hour,min(e.Produced_at_time),max(e.Produced_at_Time)) < {{ i }}
+                    timestampdiff(hour,min(e.Produced_at_Timestamp),max(e.Produced_at_Timestamp)) < {{ i }}
 
                  then concat(({{ i }}-1)::varchar,'-',{{i}}::varchar,' horas')
 
             {% endfor %}
 
-                else ' +33 horas'
+                else ' +48 horas'
 
         end as Tiempo_sesion_horas,
 

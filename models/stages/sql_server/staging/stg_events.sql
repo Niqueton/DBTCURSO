@@ -18,6 +18,7 @@ auxi as (
 
     select 
         ID_WEB_INTERACTION,
+        CREATED_AT as Produced_at_Timestamp,
         to_date(CREATED_AT) as Produced_at_Date,
         to_time(CREATED_AT) as Produced_at_Time ,
         EVENT_ID as NK_events,

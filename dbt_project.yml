@@ -59,6 +59,14 @@ models:
         +schema: google_sheets
       sql_server:
         +schema: sql_server
+        base:
+          +docs:
+            node_color: "#C39BD3"
+          tags: ['BASES']
+        stages:
+          +docs:
+            node_color: "##5DADE2"
+          tags: ['STAGES']
       others:
         +schema: others
     marts:
