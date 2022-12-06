@@ -65,7 +65,7 @@ models:
           tags: ['BASES']
         stages:
           +docs:
-            node_color: "##5DADE2"
+            node_color: "#5DADE2"
           tags: ['STAGES']
       others:
         +schema: others
@@ -80,10 +80,22 @@ models:
       tags: ['GOLD']
       core:
         +schema: core
+        dims:
+          tags: ['DIMS']
+          +docs: 
+            node_color: '#82E0AA'
+        Facts_tables:
+          tags: ['FACT_TABLE']
+          +docs:
+            node_color: '#F4D03F'
+        
       distintas_areas:
         +schema: distintas_areas
       intermediate:
         +schema: intermediate
+        tags: ['INTERMEDIATE']
+        +docs:
+          node_color: '#D35400'
 seeds:
   +transient: false
   +target_database: |  
@@ -93,6 +105,9 @@ seeds:
         {%- else -%} {{target.database}}_silver_db_alumno10
         {%- endif -%}
   +target_schema: seeds
+  tags: ['SEED']
+  +docs:
+    node_color: '#FBFCFC'
 
 snapshots:
   +sql_header: "alter session set timezone = 'Europe/Madrid';alter session set week_start = 7;"
@@ -104,7 +119,9 @@ snapshots:
         {%- else -%} {{target.database}}_silver_db_alumno10
         {%- endif -%}
   +target_schema: snapshots
-
+  tags: ['SNAPSHOT']
+  +docs:
+    node_color: '#E74C3C'
 vars:
   "dbt_ml:audit_schema": "audit"
   "dbt_ml:audit_table": "ml_models"

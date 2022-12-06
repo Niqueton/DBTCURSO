@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: dim_date_
+  - name: dim_date
     description: "Dimensión fecha"
     columns:
       - name: date_day
