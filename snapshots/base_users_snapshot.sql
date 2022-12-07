@@ -17,7 +17,7 @@ with base_users1 as (
 ,
 base_users2 as (
   select 
-    ID_DIM_users,
+
     User_ID as NK_users ,
 		to_date(UPDATED_AT) as Update_Date ,
 		to_time(UPDATED_AT) as Update_Time,

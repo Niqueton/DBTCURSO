@@ -1,3 +1,10 @@
+ {{ config(
+    materialized='incremental',
+    unique_key = 'NK_customer'
+    ) 
+    }}
+
+
 with dim_customer_historica as (
     select * from {{ ref('dim_customer_historica') }}
 )

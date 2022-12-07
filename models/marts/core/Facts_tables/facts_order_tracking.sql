@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key = 'ID_ORDER_TRACKING',
+    unique_key = 'DD_order',
     tags=['INCREMENTAL','FACT_TABLE']
     ) 
     }}
@@ -36,8 +36,8 @@ intermediate_session as (
 
 
 select 
-     ot.ID_ORDER_TRACKING
-    , c.ID_DIM_CUSTOMER
+
+      c.ID_DIM_CUSTOMER
     , p.ID_DIM_promos
     , a.ID_DIM_SHIPPING_ADDRESS
     , ot.NK_orders as DD_order

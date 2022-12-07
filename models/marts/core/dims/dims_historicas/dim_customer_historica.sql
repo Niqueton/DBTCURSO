@@ -1,6 +1,6 @@
  {{ config(
     materialized='incremental',
-    unique_key = 'ID_DIM_CUSTOMER',
+    unique_key = ['NK_customer','Version']
     ) 
     }}
 
@@ -15,7 +15,7 @@ stg_addresses as (
 )
 
 select 
-    u.ID_DIM_USERS as ID_DIM_CUSTOMER ,
+    md5(concat(NK_customer,ID_LOAD_DATE)) as ID_DIM_CUSTOMER ,
 	u.NK_USERS as NK_customer,
 	(rank()over(partition by u.NK_users order by u.DBT_VALID_FROM desc)) as Version,
 	concat(a.ADDRESS,' ,',a.city,' ,',a.Zipcode,',',a.STATE) as Main_Address,
@@ -34,8 +34,8 @@ on u.NK_address=a.NK_address
 
 {% if is_incremental() %}
 
-  where u.DBT_VALID_FROM > (select max(VALID_FROM) from {{ this }})
-  or u.DBT_VALID_TO>= (select max(valid_from) from {{ this }})
+  where {{ fecha_id('u.LOAD_DATE') }} > (select max(ID_LOAD_DATE) from {{ this }})
+  
 
 {% endif %}
 

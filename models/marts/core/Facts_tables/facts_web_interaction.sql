@@ -24,7 +24,7 @@ intermediate_session as (
 
 
     select 
-        e.ID_WEB_INTERACTION,
+
         {{ fecha_id('e.Produced_at_date')}} as ID_PRODUCED_AT_DATE,
         {{ time_id('e.Produced_at_time')}} as ID_PRODUCED_AT_TIME,
         e.NK_events,

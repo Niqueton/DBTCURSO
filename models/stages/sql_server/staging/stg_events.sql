@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key = 'ID_WEB_INTERACTION',
+    unique_key = 'NK_events',
     tags=['SILVER','INCREMENTAL']
     ) 
     }}
@@ -15,7 +15,7 @@ sesion as (
 )
 
     select 
-        ID_WEB_INTERACTION,
+
         CREATED_AT as Produced_at_Timestamp,
         to_date(CREATED_AT) as Produced_at_Date,
         to_time(CREATED_AT) as Produced_at_Time ,

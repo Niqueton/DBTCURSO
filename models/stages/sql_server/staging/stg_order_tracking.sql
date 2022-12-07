@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key = 'ID_ORDER_TRACKING',
+    unique_key = 'NK_orders',
     tags=['SILVER','INCREMENTAL']
     ) 
     }}
@@ -14,7 +14,6 @@ base_order_items as (
 )
 
     select
-        o.ID_ORDER_TRACKING,
         o.NK_address,
         o.Received_at_Timestamp,
         o.Delivered_at_Timestamp,

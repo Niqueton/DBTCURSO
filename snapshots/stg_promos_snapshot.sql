@@ -14,7 +14,7 @@
 
 with base_promos1 as (
     select * from {{ source('src_sql_server', 'promos') }}
-),
+)
 
 
     select 
@@ -23,12 +23,10 @@ with base_promos1 as (
         discount as Order_discount_USD,
         status,
         to_date(_fivetran_synced) as Load_Date,
-        to_time(_fivetran_synced) as Load_Time,
-        _fivetran_deleted
+        to_time(_fivetran_synced) as Load_Time
+
     from base_promos1
     where _fivetran_deleted is null
-
-
 
 
 

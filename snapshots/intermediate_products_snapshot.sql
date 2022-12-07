@@ -23,7 +23,7 @@ base_products1 as (
 
 stg_products1 as (
     select 
-        p.ID_DIM_products,
+
     	p.NK_products ,
 		p.Product_base_Price ,
 		p.Product_Name,

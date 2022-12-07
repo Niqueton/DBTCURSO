@@ -1,7 +1,7 @@
 
 {{ config(
     materialized='incremental',
-    unique_key = 'ID_ORDER_TRACKING',
+    unique_key = 'NK_orders',
     tags=['SILVER','INCREMENTAL']
     ) 
     }}
@@ -12,7 +12,6 @@ with base_orders1 as (
 )
 
     select
-        ID_ORDER_TRACKING,
         ADDRESS_ID as NK_address,
         CREATED_AT as Received_at_Timestamp,
         DELIVERED_AT as Delivered_at_Timestamp,
