@@ -1,13 +1,13 @@
 {{ config(
     materialized='incremental',
     unique_key = 'ID_ORDER_TRACKING',
-    tags=['SILVER','Incremental']
+    tags=['SILVER','INCREMENTAL']
     ) 
     }}
 
 
 with base_orders1 as (
-    select * from {{ ref('base_orders_snapshot') }}
+    select * from {{ ref('base_orders') }}
 ),
 base_order_items as (
     select * from {{ ref('base_order_items') }}

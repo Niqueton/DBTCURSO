@@ -12,9 +12,7 @@ with base_events1 as (
 
 sesion as (
     select session_id from base_events1 where Order_id is not null
-),
-
-auxi as (
+)
 
     select 
         ID_WEB_INTERACTION,
@@ -31,7 +29,6 @@ auxi as (
         _fivetran_synced as Load_Timestamp,
         to_date(_fivetran_synced) as Load_Date,
         to_time(_fivetran_synced) as Load_Time,
-        _fivetran_deleted,
         case
             when s.session_id is null then 'No terminó en compra'
             else 'Terminó en compra'
@@ -42,12 +39,11 @@ auxi as (
     left join sesion s
     on e.Session_id=s.session_id
 
-),
+    where _fivetran_deleted is null
 
-{{ fuera_deletes('auxi','NK_events')}}
 
 {% if is_incremental() %}
 
-  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
+ and _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
 
 {% endif %}
