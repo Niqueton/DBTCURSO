@@ -24,12 +24,16 @@ dim_shipping_addresses as (
 
 intermediate_order as (
     select NK_orders,ID_DIM_ORDERS from {{ ref('intermediate_order') }}
+),
+
+dim_products_historica as (
+    select ID_DIM_products,NK_products from {{ ref('dim_products_historica') }}
 )
 
 select 
         o.ID_ITEM_SALES,
         io.ID_DIM_ORDERS,
-        o.ID_DIM_products,
+        p.ID_DIM_products,
         a.ID_DIM_SHIPPING_ADDRESS,
         c.ID_DIM_CUSTOMER,
         o.ID_DIM_promos,
@@ -60,6 +64,9 @@ on o.NK_address=a.NK_address
 
 left join intermediate_order io 
 on o.NK_orders=io.NK_orders 
+
+inner join dim_products_historica p 
+on o.NK_products=p.NK_products
 
 {% if is_incremental() %}
 

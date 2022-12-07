@@ -11,7 +11,7 @@ with base_products as (
 
 select
 
-  ID_DIM_products,
+  NK_products,
   INVENTORY as Stock,
   year(Load_date)*100+month(Load_date) as id_anio_mes
 

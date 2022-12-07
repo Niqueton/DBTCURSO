@@ -27,7 +27,7 @@ stg_promos_snapshot as (
     select
         oi.ID_ITEM_SALES,
         oi.NUMBER_OF_UNITS as Quantity_sold,
-        p.ID_DIM_products,
+        oi.NK_products,
         oi.Load_Timestamp,
         o.NK_orders,
         o.NK_address,

@@ -34,4 +34,4 @@ from intermediate_products_snapshot
 
 union 
 
-select 0,0,'No aplica',0,'No aplica','No aplica','No aplica',0,0,to_date('2000-03-01'),null
+select 'No aplica',0,'No aplica',0,'No aplica','No aplica','No aplica',0,0,to_date('2000-03-01'),null

@@ -17,12 +17,12 @@ select
         Num_productos_visitados,
         Tiempo_sesion_minutos,
         Tiempo_sesion_horas,
-        Indicador_compra
-
+        Indicador_compra,
+        Load_Timestamp
 from intermediate_session
 
 {% if is_incremental() %}
 
-  where e.Load_timestamp > (select max(Load_Timestamp) from {{ this }})
+  where Load_timestamp > (select max(Load_Timestamp) from {{ this }})
 
 {% endif %}

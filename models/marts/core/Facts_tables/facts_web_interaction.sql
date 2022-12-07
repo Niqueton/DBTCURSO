@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key = 'ID_WEB_INTERACTION',
+    unique_key = 'NK_events',
     tags=['FACT_TABLE','INCREMENTAL']
     ) 
     }}
@@ -29,10 +29,10 @@ intermediate_session as (
         {{ time_id('e.Produced_at_time')}} as ID_PRODUCED_AT_TIME,
         e.NK_events,
         e.EVENT_TYPE,
-        {{ cambio_valor('o.ID_DIM_ORDERS',"null","'0'") }} as ID_DIM_ORDERS,
+        {{ cambio_valor('o.ID_DIM_ORDERS',"null","'No aplica'") }} as ID_DIM_ORDERS,
         {{ cambio_valor('e.NK_orders',"null","'No aplica'") }} as DD_Order,
         e.PAGE_URL,
-        {{ cambio_valor('p.ID_DIM_products',"null",'0') }} as ID_DIM_products,
+        {{ cambio_valor('p.ID_DIM_products',"null","'No aplica'") }} as ID_DIM_products,
         s.ID_DIM_session,
         c.ID_DIM_CUSTOMER,
         e.Load_Timestamp

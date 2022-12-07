@@ -30,8 +30,10 @@ stg_addresses1 as (
         a.Load_Timestamp
         
     from base_addresses as a
+
     left join husos_horarios as h
     on a.STATE=h.STATE
+    
     left join cityzipcode c
     on a.ZIPCODE=c.ZIPCODE
     

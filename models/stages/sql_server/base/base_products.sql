@@ -1,11 +1,8 @@
-
-
-{{ config(
-    materialized='incremental',
-    unique_key = 'ID_DIM_products',
-    tags=['SILVER','INCREMENTAL']
-    ) 
-    }}
+{{
+    config(
+        tags=['VISTA']
+    )
+}}
 
 with base_products1 as (
     select * from {{ source('src_sql_server', 'products') }}
@@ -30,8 +27,4 @@ with base_products1 as (
 	from base_products1
 	where _fivetran_deleted is null
 
-{% if is_incremental() %}
 
-  and _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
-
-{% endif %}

@@ -15,7 +15,7 @@ stg_addresses as (
 )
 
 select 
-    md5(concat(NK_customer,ID_LOAD_DATE)) as ID_DIM_CUSTOMER ,
+    md5(concat(NK_USERS,{{ fecha_id('u.LOAD_DATE') }}::varchar)) as ID_DIM_CUSTOMER ,
 	u.NK_USERS as NK_customer,
 	(rank()over(partition by u.NK_users order by u.DBT_VALID_FROM desc)) as Version,
 	concat(a.ADDRESS,' ,',a.city,' ,',a.Zipcode,',',a.STATE) as Main_Address,
@@ -42,7 +42,7 @@ on u.NK_address=a.NK_address
 union 
 
 select 
-	 0
+	 'No aplica'
 	,'No aplica'
 	,0
 	,'No aplica'

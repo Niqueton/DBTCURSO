@@ -15,13 +15,14 @@ select
     Total_number_of_items,
     Status,
     SHIPPING_SERVICE,
-    RANGE_ORDER_TOTAL_USD
+    RANGE_ORDER_TOTAL_USD,
+    Load_Timestamp
 from 
 intermediate_order
 
 {% if is_incremental() %}
 
-  where ID_DIM_ORDERS =! (select ID_DIM_ORDERS from {{ this }})
+  where Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
 
 {% endif %}
 
@@ -34,3 +35,4 @@ select
     , 'No aplica'
     , 'No aplica'
     , 'No aplica'
+    , null

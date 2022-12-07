@@ -18,8 +18,8 @@ with base_addresses1 as (
         a.STATE,
         a.COUNTRY,
         a.ZIPCODE,
-        a._fivetran_synced as Load_Timestamp,
-        a._fivetran_deleted
+        a._fivetran_synced as Load_Timestamp
+
     from base_addresses1 a
     where a._fivetran_deleted is null
 
