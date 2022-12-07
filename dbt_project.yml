@@ -105,9 +105,9 @@ seeds:
         {%- else -%} {{target.database}}_silver_db_alumno10
         {%- endif -%}
   +target_schema: seeds
-  tags: ['SEED']
+  tags: ['SEED','BRONZE']
   +docs:
-    node_color: '#FBFCFC'
+    node_color: '#48C9B0'
 
 snapshots:
   +sql_header: "alter session set timezone = 'Europe/Madrid';alter session set week_start = 7;"

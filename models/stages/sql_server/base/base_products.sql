@@ -1,8 +1,16 @@
+
+
+{{ config(
+    materialized='incremental',
+    unique_key = 'ID_DIM_products',
+    tags=['SILVER','INCREMENTAL']
+    ) 
+    }}
+
 with base_products1 as (
     select * from {{ source('src_sql_server', 'products') }}
 )
-,
-base_products2 as (
+
     select 
     	ID_DIM_products,
     	product_ID as NK_products,
@@ -17,10 +25,13 @@ base_products2 as (
 		end as Price_Range,
         to_date(_fivetran_synced) as Load_Date,
         to_time(_fivetran_synced) as Load_Time,
-		_fivetran_deleted 
+        _fivetran_synced as Load_Timestamp
+
 	from base_products1
+	where _fivetran_deleted is null
 
-),
+{% if is_incremental() %}
 
-{{ fuera_deletes('base_products2','NK_products')}}
+  and _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
 
+{% endif %}

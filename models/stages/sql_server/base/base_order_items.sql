@@ -8,8 +8,8 @@
 
 with base_order_items1 as (
     select * from {{ source('src_sql_server', 'order_items') }}
-),
-base_order_items2 as (
+)
+
     select 
     md5(concat(PRODUCT_ID,ORDER_ID)) as ID_ITEM_SALES,
     PRODUCT_ID as NK_products,
@@ -19,14 +19,12 @@ base_order_items2 as (
     _fivetran_deleted
 
     from base_order_items1
+    where _fivetran_deleted is null
 
-),
-
-{{ fuera_deletes('base_order_items2','NK_products')}}
 
 {% if is_incremental() %}
 
-  where Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
+  and _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
 
 {% endif %}
 

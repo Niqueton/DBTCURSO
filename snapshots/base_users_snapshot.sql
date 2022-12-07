@@ -6,7 +6,7 @@
           unique_key='NK_users',
           strategy='timestamp',
           updated_at='Load_Date',
-          tags= ['SILVER','SNAPSHOT']
+          tags= ['SILVER','INCREMENTAL']
         )
     }}
 
@@ -30,7 +30,8 @@ base_users2 as (
     to_date(_fivetran_synced) as Load_Date,
     to_time(_fivetran_synced) as Load_Time 
 	from base_users1
-	where _fivetran_deleted is null
+  where _fivetran_deleted is null
+  
 )
 
 select * from base_users2

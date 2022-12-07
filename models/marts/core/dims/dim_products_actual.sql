@@ -8,7 +8,6 @@ select
 	      Product_Name,
         Price_Range,
         Description,
-        Security_Stock,
         Valid_from as Last_time_updated_at
 from dim_products_historica
 where Valid_to is null

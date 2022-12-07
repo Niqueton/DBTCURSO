@@ -1,11 +1,10 @@
 {% snapshot intermediate_products_snapshot %}
 
-{{
+    {{
         config(
+          strategy='check',
           unique_key='NK_products',
-          strategy='timestamp',
-          updated_at='Load_Date',
-          tags=['GOLD','SNAPSHOT','INCREMENTAL']
+          check_cols=['Product_base_Price', 'Description','Product_Name'],
         )
     }}
 
@@ -20,9 +19,6 @@ base_products1 as (
     select * from {{ ref('base_products') }}
 ),
 
-stg_security_stock as (
-    select * from {{ ref('stg_security_stock') }}
-),
 
 stg_products1 as (
     select 
@@ -30,10 +26,8 @@ stg_products1 as (
     	p.NK_products ,
 		p.Product_base_Price ,
 		p.Product_Name,
-        p.INVENTORY as Stock,
         p.Price_Range,
         pd.Description,
-        s.Security_Stock,
         p.Load_Date,
         p.Load_Time
     from base_products1 as p
@@ -41,8 +35,6 @@ stg_products1 as (
     left join ProductDesc as pd
     on p.product_name=pd.product_name
 
-    left join stg_security_stock s 
-    on p.NK_products=s.NK_products
 )
 
 select * from stg_products1

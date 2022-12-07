@@ -5,16 +5,15 @@
           unique_key='NK_orders',
           strategy='timestamp',
           updated_at='Load_Timestamp',
-          tags=['SILVER','SNAPSHOT','INCREMENTAL']
+          tags=['SILVER','INCREMENTAL']
         )
     }}
 
 
 with base_orders1 as (
     select * from {{ source('src_sql_server', 'orders') }}
-),
+)
 
-auxi as (
     select
         ID_ORDER_TRACKING,
         ADDRESS_ID as NK_address,
@@ -30,13 +29,12 @@ auxi as (
         STATUS,
         TRACKING_ID as DD_tracking,
         USER_ID as NK_users,
-        _fivetran_synced as Load_Timestamp,
-        _fivetran_deleted
+        _fivetran_synced as Load_Timestamp
+
         
 from base_orders1
-),
+where _fivetran_deleted is null
 
-{{ fuera_deletes('auxi','NK_orders')}}
 
 {% endsnapshot %}
 

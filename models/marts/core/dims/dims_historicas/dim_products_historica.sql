@@ -16,21 +16,21 @@ select
 	    	Product_Name,
         Price_Range,
         Description,
-        Security_Stock,
 	      {{ fecha_id('LOAD_DATE') }} as ID_LOAD_DATE ,
 	      {{ time_id('LOAD_TIME') }} as ID_LOAD_TIME,
         DBT_VALID_FROM as Valid_from,
         DBT_VALID_TO as Valid_to
+
 from intermediate_products_snapshot
 
 
 
 {% if is_incremental() %}
 
-  where Load_date >= (select max(Load_Date) from {{ this }})
+  where {{ fecha_id('Load_date') }} >= (select max(ID_Load_Date) from {{ this }})
 
 {% endif %}
 
 union 
 
-select 0,0,'No aplica',0,'No aplica','No aplica','No aplica',0,0,0,to_date('2000-03-01'),null
+select 0,0,'No aplica',0,'No aplica','No aplica','No aplica',0,0,to_date('2000-03-01'),null
