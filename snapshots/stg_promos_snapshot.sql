@@ -5,7 +5,8 @@
           unique_key='Promotion_Name',
           strategy='timestamp',
           updated_at='Load_Date',
-          tags=['SILVER','INCREMENTAL']
+          tags=['SILVER','INCREMENTAL'],
+          invalidate_hard_deletes=True
         )
     }}
 

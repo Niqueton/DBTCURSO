@@ -5,6 +5,7 @@
           strategy='check',
           unique_key='NK_products',
           check_cols=['Product_base_Price', 'Description','Product_Name'],
+          invalidate_hard_deletes=True
         )
     }}
 

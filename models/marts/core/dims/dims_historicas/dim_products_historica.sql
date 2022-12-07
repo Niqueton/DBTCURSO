@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key = 'ID_DIM_products',
+    unique_key = ['NK_products','Version'],
     tags= ['INCREMENTAL']
     ) 
     }}
@@ -9,8 +9,8 @@ with intermediate_products_snapshot as (
     select * from {{ ref('intermediate_products_snapshot') }}
 )
 select 
-        ID_DIM_products,
-        rank()over(partition by NK_products order by DBT_VALID_FROM desc) as Version,
+        md5(concat('NK_products','DBT_VALID_FROM')) as ID_DIM_products,
+        rank()over(partition by NK_products order by DBT_VALID_FROM) as Version,
       	NK_products ,
 	    	Product_base_Price,
 	    	Product_Name,
@@ -20,6 +20,7 @@ select
 	      {{ time_id('LOAD_TIME') }} as ID_LOAD_TIME,
         DBT_VALID_FROM as Valid_from,
         DBT_VALID_TO as Valid_to
+
 
 from intermediate_products_snapshot
 

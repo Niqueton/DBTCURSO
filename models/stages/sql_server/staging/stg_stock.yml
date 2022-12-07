@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: stg_stock
+    description: "Tabla intermedia para tabla de hechos de stock, supongo que cargan la tbla el último día de cada més"
+    columns:
+      - name: id_dim_products
+        description: "Llave surrogada introducida en paso previo en snowflake"
+      - name: stock
+        description: "Unidades de producto en inventario"
+      - name: id_anio_mes
+        description: "Identificador de més y año"
