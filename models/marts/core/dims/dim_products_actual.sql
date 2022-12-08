@@ -15,12 +15,14 @@ select
 	      Product_Name,
         Price_Range,
         Description,
-        Valid_from as Last_time_updated_at
+        Valid_from as Last_time_updated_at,
+        ID_LOAD_DATE
 from dim_products_historica
 where Valid_to is null
 
 {% if is_incremental() %}
 
-  where Valid_from >= (select max(Last_time_updated_at) from {{ this }})
+  where NK_products in  (select NK_products from dim_products_historica where ID_LOAD_DATE>
+  (select max(ID_LOAD_DATE) from {{ this }}))
 
 {% endif %}

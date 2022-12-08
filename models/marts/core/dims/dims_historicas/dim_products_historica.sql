@@ -28,7 +28,8 @@ from intermediate_products_snapshot
 
 {% if is_incremental() %}
 
-  where {{ fecha_id('Load_date') }} >= (select max(ID_Load_Date) from {{ this }})
+  where NK_products in  (select NK_products from intermediate_products_snapshot where {{ fecha_id('LOAD_DATE') }}>
+  (select max(ID_LOAD_DATE) from {{ this }}))
 
 {% endif %}
 

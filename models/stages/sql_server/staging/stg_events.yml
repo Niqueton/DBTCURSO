@@ -16,10 +16,10 @@ models:
         description: "Tipo de evento web"
       - name: NK_orders
         description: "Llave natural de pedidos en el sistema original"
-        tests:
-          - relationships:
-              to: source('src_sql_server','orders')
-              field: order_id
+        #tests:
+         # - relationships:
+          #    to: source('src_sql_server','orders')
+           #   field: order_id
       - name: page_url
         description: "Link de página web visitada"
       - name: NK_products

@@ -12,7 +12,7 @@ with base_addresses1 as (
 )
 
     select 
-        a.NK_address as ID_DIM_SHIPPING_ADDRESS,
+        a.ADDRESS_ID as ID_DIM_SHIPPING_ADDRESS,
         a.ADDRESS,
         a.ADDRESS_ID as NK_address,
         a.STATE,

@@ -34,7 +34,8 @@ on u.NK_address=a.NK_address
 
 {% if is_incremental() %}
 
-  where {{ fecha_id('u.LOAD_DATE') }} > (select max(ID_LOAD_DATE) from {{ this }})
+  where NK_users in  (select NK_users from u where {{ fecha_id('u.LOAD_DATE') }}>
+  (select max(ID_LOAD_DATE) from {{ this }}))
   
 
 {% endif %}
