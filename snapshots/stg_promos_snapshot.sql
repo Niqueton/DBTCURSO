@@ -2,7 +2,7 @@
 
 {{
         config(
-          unique_key='Promotion_Name',
+          unique_key='promo_id',
           strategy='timestamp',
           updated_at='Load_Date',
           tags=['SILVER','INCREMENTAL'],
@@ -18,7 +18,7 @@ with base_promos1 as (
 
 
     select 
-        ID_DIM_promos,
+
         promo_id as Promotion_Name,
         discount as Order_discount_USD,
         status,

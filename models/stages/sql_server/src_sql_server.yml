@@ -16,16 +16,11 @@ sources:
         description: >
           Contiene direcciones de envíos asociadas a clientes a través de los pedidos.
         columns:
-          - name: id_shipping_address
-            description: >
-              LLave surrogada autoincremental
-            tests:
-              - unique
-              - not_null
           - name: address_id
             description: >
               Llave primaria del sistema transaccional.
             tests:
+              - unique
               - not_null
           - name: zipcode
             description: >
@@ -53,12 +48,6 @@ sources:
         description: >
           Tabla que recoge los eventos que suceden en la pagina web de la empresa.
         columns:
-          - name: id_web_interaction
-            description: >
-              LLave surrogada
-            tests:
-              - unique
-              - not_null
           - name: event_id
             description: >
               LLave primaria del sistema operacional.
@@ -134,14 +123,8 @@ sources:
 
       - name: orders
         description: >
-          Tabla de peddidos en el sistema operacional.
+          Tabla de pedidos en el sistema operacional.
         columns:
-          - name: id_order_tracking
-            description: >
-              Llave surrogada
-            tests:
-              - unique
-              - not_null
           - name: order_id
             description: >
               Identificador de pedidos en el sistema operacional.
@@ -223,16 +206,11 @@ sources:
         description: >
           Tabla de productos en el sistema operacional.
         columns:
-          - name: id_dim_products
-            description: >
-              Llave surrogada
-            tests:
-             - unique
-             - not_null
           - name: product_id
             description: >
               Identificador de producto e el sistema operacional.
             tests:
+             - unique
              - not_null
           - name: price
             description: >
@@ -260,16 +238,11 @@ sources:
         description: >
           Tabla que guarda las promociones en el sistema operacional.
         columns:
-          - name: id_dim_promos
-            description: >
-              Llave surrogada.
-            tests:
-             - unique
-             - not_null
           - name: promo_id
             description: >
               Identificador de la promoción en el sistema operacional.
             tests:
+             - unique
              - not_null
           - name: discount
             description: >
@@ -294,16 +267,11 @@ sources:
         description: >
           Tabla de clientes en el sistema operacional.
         columns:
-          - name: id_dim_users
-            description: >
-              Llave surrogada
-            tests:
-             - unique
-             - not_null
           - name: user_id
             description: >
               Identificador de usuario en el sistema transaccional.
             tests:
+             - unique
              - not_null
           - name: updated_at
             description: >

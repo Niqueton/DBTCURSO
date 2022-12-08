@@ -1,3 +1,10 @@
+{{
+    config(
+        tags=['VISTA']
+    )
+}}
+
+
 with base_promos1 as (
     select * from {{ ref('dim_promos_historica') }}
 )

@@ -10,7 +10,7 @@ with stg_addresses as (
 ), 
 
 anexo as (
-    select  0,'No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica', 0, 0
+    select  'No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica', 0, 0
 )
 
 

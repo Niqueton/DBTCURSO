@@ -3,7 +3,7 @@ with base_budget1 as (
 ),
 base_budget2 as (
     select 
-        ID_BUDGETS,
+        _row,
         MONTH,
         PRODUCT_ID,
         QUANTITY as NUMBER_OF_UNITS_EXPECTED,

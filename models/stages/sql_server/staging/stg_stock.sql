@@ -1,6 +1,7 @@
 
 {{ config(
     materialized='incremental',
+    unique_key=['NK_products','id_anio_mes'],
     tags=['SILVER','INCREMENTAL']
     ) 
     }}
