@@ -9,7 +9,7 @@ with intermediate_products_snapshot as (
     select * from {{ ref('intermediate_products_snapshot') }}
 )
 select 
-        md5(concat('NK_products','DBT_VALID_FROM')) as ID_DIM_products,
+        md5(concat(NK_products,DBT_VALID_FROM)) as ID_DIM_products,
         rank()over(partition by NK_products order by DBT_VALID_FROM) as Version,
       	NK_products ,
 	    	Product_base_Price,

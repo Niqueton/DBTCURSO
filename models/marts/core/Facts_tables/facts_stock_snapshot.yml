@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: facts_stock_snapshot
+    description: "Tabla de hechos snapshot de stock"
+    columns:
+      - name: nk_products
+        description: "Identificador natural de producto"
+      - name: stock
+        description: "Unidades de producto en inventario"
+      - name: id_anio_mes
+        description: "Identificador de mes y año"
+      - name: stock_minimo
+        description: "Stock minimo recomendadopara afrontar el nuevo mes en base a predicciones de ventas"
+      - name: Valoracion_USD
+        description: "Valor de venta en dolares del stock de cada producto"

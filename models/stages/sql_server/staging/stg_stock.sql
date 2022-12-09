@@ -21,6 +21,6 @@ from base_products
 
 {% if is_incremental() %}
 
-  where year(Load_date)*100+month(Load_date) > (select max(id_anio_mes) from {{ this }})
+  where year(Load_date)*100+month(Load_date)+day(Load_date)/100 > (select max(id_anio_mes) from {{ this }})
 
 {% endif %}
