@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: facts_budget
+    description: "Tabla de hechos de presupuestos"
+    columns:
+      - name: nk_products
+        description: "Identificador natural de producto"
+      - name: presupuesto_empresa
+        description: "Presupuesto establecido por la compañia"
+      - name: prevision_lineal_ventas
+        description: "Predicción lineal de numero de unidades que se venderán este mes, el correspondiente a id_anio_mes"
+      - name: id_anio_mes_prediccion
+        description: "Identificador del año y més de la previsión"
+      - name: unidades_vendidas
+        description: "Unidades vendidas ese mes"
+      - name: presupuesto_empresa_usd
+        description: Presuspuesto empresa en dolares""
+      - name: balance_respecto_presupuesto_usd
+        description: "Dolares de diferencia entre presupuesto y ventas"
+      - name: balance_respecto_prevision_lineal_usd
+        description: "Error en dolares de la previsión lineal"
+      - name: load_date
+        description: "Fecha de carga"

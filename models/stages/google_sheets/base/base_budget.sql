@@ -13,6 +13,7 @@ base_budget2 as (
     select 
         _row,
         MONTH as fecha,
+        ADD_MONTHS( MONTH , 1 ) as fecha_plus,
         PRODUCT_ID as NK_products,
         QUANTITY as NUMBER_OF_UNITS_EXPECTED,
         _fivetran_synced
@@ -23,7 +24,7 @@ base_budget3 as (
     select 
         _row,
         (year(fecha)*100+month(fecha)) as id_anio_mes_anterior,
-        ADD_MONTHS( fecha , 1 ) as id_anio_mes_prediccion,
+        (year(fecha_plus)*100+month(fecha_plus)) as id_anio_mes_prediccion,
         NK_products,
         NUMBER_OF_UNITS_EXPECTED,
         to_date(_fivetran_synced) as Load_Date,
