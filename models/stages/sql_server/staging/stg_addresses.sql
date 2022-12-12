@@ -43,6 +43,6 @@ select * from stg_addresses1
 
 {% if is_incremental() %}
 
-  where a.Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
+  where Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
 
 {% endif %}

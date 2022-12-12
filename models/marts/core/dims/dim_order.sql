@@ -16,13 +16,13 @@ select
     Status,
     SHIPPING_SERVICE,
     RANGE_ORDER_TOTAL_USD,
-    {{ fecha_id(to_date(Load_Timestamp)) }} as ID_LOAD_DATE
+    {{ fecha_id('to_date(Load_Timestamp)') }} as ID_LOAD_DATE
 from 
 intermediate_order
 
 {% if is_incremental() %}
 
-  where {{ fecha_id(to_date(Load_Timestamp)) }} > (select max(ID_LOAD_DATE)) from {{ this }})
+  where {{ fecha_id('to_date(Load_Timestamp)') }} > (select max(ID_LOAD_DATE)) from {{ this }})
 
 {% endif %}
 

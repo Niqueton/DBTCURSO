@@ -34,6 +34,7 @@ intermediate_session as (
         e.PAGE_URL,
         {{ cambio_valor('p.ID_DIM_products',"null","'No aplica'") }} as ID_DIM_products,
         s.ID_DIM_session,
+        e.DD_session,
         c.ID_DIM_CUSTOMER,
         e.Load_Timestamp
 
@@ -53,7 +54,7 @@ intermediate_session as (
 
 {% if is_incremental() %}
 
-  where _fivetran_synced > (select max(Load_Timestamp) from {{ this }})
+  where e.Load_Timestamp > (select max(Load_Timestamp) from {{ this }})
 
 {% endif %}
   

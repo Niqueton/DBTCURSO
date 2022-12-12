@@ -21,11 +21,11 @@ select distinct
     ID_LOAD_DATE
 
 from dim_customer_historica
-where VALID_TO is null
+
 
 {% if is_incremental() %}
 
-  where NK_customer in  (select NK_customer from dim_customer_historica where ID_LOAD_DATE>
+  and NK_customer in  (select NK_customer from dim_customer_historica where ID_LOAD_DATE>
   (select max(ID_LOAD_DATE) from {{ this }}))
   
 

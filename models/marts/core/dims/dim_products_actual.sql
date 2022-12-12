@@ -18,7 +18,7 @@ select
         Valid_from as Last_time_updated_at,
         ID_LOAD_DATE
 from dim_products_historica
-where Valid_to is null
+
 
 {% if is_incremental() %}
 
