@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key = 'DD_order',
+    unique_key = 'DD_orders',
     tags=['INCREMENTAL','FACT_TABLE']
     ) 
     }}
@@ -40,7 +40,7 @@ select
       c.ID_DIM_CUSTOMER
     , p.ID_DIM_promos
     , a.ID_DIM_SHIPPING_ADDRESS
-    , ot.NK_orders as DD_order
+    , ot.NK_orders as DD_orders
     , ot.DD_Tracking
     , {{ fecha_id('to_date(ot.Received_at_Timestamp)') }} as ID_RECEIVED_DATE
     , {{ time_id('to_time(ot.Received_at_Timestamp)') }} as ID_RECEIVED_TIME

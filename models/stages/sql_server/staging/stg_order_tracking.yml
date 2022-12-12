@@ -6,6 +6,9 @@ models:
     columns:
       - name: id_order_tracking
         description: "Llave surrogada de seguimiento de pedido"
+        tests:
+          - unique
+          - not_null
       - name: nk_address
         description: "Identificador natural de la dirección"
       - name: received_at_timestamp
