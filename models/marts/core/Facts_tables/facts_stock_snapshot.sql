@@ -6,7 +6,7 @@
     }}
 
 with stg_stock as (
-    select * from {{ ref('stg_stock') }}
+    select * from {{ ref('stg_stock_snapshot') }}
 )
 ,
 intermediate_sb as (
@@ -19,6 +19,7 @@ dim_products_actual as (
 
 select
 
+  s.ID_STOCK,
   s.NK_products,
   s.Stock,
   s.id_anio_mes,
