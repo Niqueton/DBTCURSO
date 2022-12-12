@@ -39,11 +39,11 @@ left join intermediate_sb sb
 on s.NK_products=sb.NK_products
 and s.id_anio_mes=sb.id_anio_mes_anterior
 
-left join dim_products_historica p 
+left join dim_products_actual p 
 on s.NK_products=p.NK_products
 
 {% if is_incremental() %}
 
-  where id_anio_mes >= (select max(id_anio_mes) from {{ this }})
+  where s.id_anio_mes >= (select max(id_anio_mes) from {{ this }})
 
 {% endif %}

@@ -18,11 +18,11 @@ select
         Tiempo_sesion_minutos,
         Tiempo_sesion_horas,
         Indicador_compra,
-        Load_Timestamp
+        {{ fecha_id(to_date(Load_Timestamp)) }} as ID_LOAD_DATE
 from intermediate_session
 
 {% if is_incremental() %}
 
-  where Load_timestamp > (select max(Load_Timestamp) from {{ this }})
+  where {{ fecha_id(to_date(Load_Timestamp)) }} > (select max(ID_LOAD_DATE) from {{ this }})
 
 {% endif %}

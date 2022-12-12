@@ -24,8 +24,8 @@ select
     City,
     ZIPCODE::varchar as Zipcode,
     hour_zone as time_zone,
-    {{ fecha_id('to_date(Load_Timestamp)') }} as ID_LOAD_DATE,
-    {{ time_id('to_time(Load_Timestamp)') }} as ID_LOAD_TIME
+    {{ fecha_id('to_date(Load_Timestamp)') }} as ID_LOAD_DATE
+
 from stg_addresses
 
 {% if is_incremental() %}

@@ -11,7 +11,11 @@ with stg_item_sales as (
 ),
 
 stg_events as (
-    select NK_orders from {{ ref('stg_events') }}
+    select NK_orders,DD_session from {{ ref('stg_events') }}
+),
+
+intermediate_session as (
+    select DD_session,ID_DIM_session from {{ ref('intermediate_session') }}
 ),
 
 dim_customer_historica as (
@@ -37,6 +41,7 @@ select
         a.ID_DIM_SHIPPING_ADDRESS,
         c.ID_DIM_CUSTOMER,
         o.ID_DIM_promos,
+        s.ID_DIM_session,
         o.Quantity_sold,
         o.Load_Timestamp,
         case
@@ -64,6 +69,9 @@ on o.NK_address=a.NK_address
 
 left join intermediate_order io 
 on o.NK_orders=io.NK_orders 
+
+left join intermediate_session s 
+on e.DD_session=s.DD_session
 
 inner join dim_products_historica p 
 on o.NK_products=p.NK_products

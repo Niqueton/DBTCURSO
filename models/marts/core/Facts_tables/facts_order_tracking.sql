@@ -52,7 +52,6 @@ select
     , ot.ORDER_COST_USD
     , ot.ORDER_TOTAL_USD
     , ot.SHIPPING_COST_USD
-    , ot.STATUS
     , timestampdifF(hour,ot.Received_at_Timestamp,ot.Delivered_at_Timestamp) as Lag_respect_received_order_hours
     , timestampdifF(hour,ot.Estimated_delivery_at_timestamp,ot.Delivered_at_Timestamp) as Lag_respect_estimated_delivery_order_hours
     , ot.Load_Timestamp

@@ -33,6 +33,10 @@ select
     , year(d.date_day)||weekiso(d.date_day)||dayofweek(d.date_day) as anio_semana_dia
     , weekiso(d.date_day) as semana
     , case 
+        when dayofweek(d.date_day) in (0,6) then 'fin de semana'
+        else 'dia laborable'
+      end as Weekday_indicator
+    , case 
             when h.Holiday is null then 'No festivo'
             else h.Holiday
       end as Holiday_indicator

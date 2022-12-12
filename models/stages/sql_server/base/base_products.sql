@@ -25,6 +25,6 @@ with base_products1 as (
         _fivetran_synced as Load_Timestamp
 
 	from base_products1
-	where _fivetran_deleted is null
+	where _fivetran_deleted is null or _fivetran_deleted=FALSE
 
 
