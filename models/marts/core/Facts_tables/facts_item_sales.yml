@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: facts_item_sales
+    description: "Tabla de hechos de ventas al por menor por producto"
+    columns:
+      - name: id_item_sales
+        description: "Llave surrogada "
+      - name: id_dim_orders
+        description: "Llave primaria de la dimensión order"
+      - name: id_dim_products
+        description: "Llave surrogada introducida en paso previo en snowflake"
+      - name: id_dim_shipping_address
+        description: "Identificador de la dimensión"
+      - name: id_dim_customer
+        description: "Llave surrogada de clientes"
+      - name: id_dim_promos
+        description: "Identificador de la dimensión de promos"
+      - name: quantity_sold
+        description: "Cantidad de producto vendida en el pedido"
+      - name: load_timestamp
+        description: "Fecha de carga"
+      - name: metodo_compra
+        description: "Indicador de si al compra es en tienda física o a travésd e internet"
+      - name: dd_orders
+        description: "Identificador natural del pedido"
+      - name: id_produced_date
+        description: "Llave de la dimensión fecha"
+      - name: id_produced_time
+        description: "Llave de la dimsión hora del día"
+      - name: total_base_price_usd
+        description: "Precio base total "
+      - name: final_revenue_usd
+        description: "Precio total de venta sin tener en cuenta el coste de envío"
+      - name: proportional_discount_usd
+        description: "Descuento proporcional aplicado a estos productos dentro del pedido"

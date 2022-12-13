@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: dim_session
+    description: "Dimensión sesión web"
+    columns:
+      - name: id_dim_session
+        description: "Identificador de la sesión"
+
+      - name: num_productos_visitados
+        description: "Número de productos visitados en la sesión"
+
+      - name: tiempo_sesion_minutos
+        description: "Duración de la sesión en minutos"
+
+      - name: tiempo_sesion_horas
+        description: "Duración de la sesión en horas"
+
+      - name: indicador_compra
+        description: "Indicador de si la sesión ha terminado en compra o no"

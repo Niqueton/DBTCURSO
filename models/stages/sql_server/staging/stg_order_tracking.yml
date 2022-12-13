@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: stg_order_tracking
+    description: "Tabla intermedia que alimenta a la dimensión order y la tabla de hechos order tracking"
+    columns:
+      - name: id_order_tracking
+        description: "Llave surrogada de seguimiento de pedido"
+        tests:
+          - unique
+          - not_null
+      - name: nk_address
+        description: "Identificador natural de la dirección"
+      - name: received_at_timestamp
+        description: "Fecha de recepción del pedido"
+      - name: delivered_at_timestamp
+        description: "Fecha de entrega del pedido"
+      - name: estimated_delivery_at_timestamp
+        description: "Fecha estimada de entrega del pedido"
+      - name: order_cost_in_dollars
+        description: "Precio base en dolares"
+      - name: nk_orders
+        description: "Identificador natural del seguimiento del pedido"
+      - name: order_total_in_dollars
+        description: "Precio total en dolares"
+      - name: promotion_name
+        description: "Nombre de la promoción"
+      - name: shipping_cost_in_dollars
+        description: "Costes de envío en dolares"
+      - name: shipping_service
+        description: "Empresa de mensajería"
+      - name: status
+        description: "Estado del pedido"
+      - name: dd_tracking
+        description: "Llave natural de la empresa de mensajería para el seguimiento"
+      - name: nk_users
+        description: "Identificador natural de los usuarios"
+      - name: range_order_total_usd
+        description: "Rango de precio total del pedido"
+      - name: number_of_different_items
+        description: "Nuúmero de items distintos"
+      - name: total_number_of_items
+        description: "Número total de items"
+      - name: load_timestamp
+        description: "Fecha de carga"

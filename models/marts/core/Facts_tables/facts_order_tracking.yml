@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: facts_order_tracking
+    description: "Tabla de hechos de seguimiento de pedidos"
+    columns:
+      - name: id_order_tracking
+        description: "Llave surrogada de seguimiento de pedido"
+      - name: id_dim_customer
+        description: "Llave surrogada de clientes"
+      - name: id_dim_promos
+        description: "Llave surrogada insertada previamente en snowflake"
+      - name: id_dim_shipping_address
+        description: "Identificador de la dimensión"
+      - name: dd_order
+        description: "Identificador natural de pedido"
+      - name: dd_tracking
+        description: "Llave natural de la empresa de mensajería para el seguimiento"
+      - name: id_received_date
+        description: "Identificador de la fecha de recepción "
+      - name: id_received_time
+        description: "Identificador de la hora de recepción "
+      - name: id_delivered_date
+        description: "Identificador de la fecha de entrega"
+      - name: id_delivered_time
+        description: "Identificador de la hora de entrega"
+      - name: id_estimated_delivery_date
+        description: "Identificador de la fecha estimada de entrega"
+      - name: id_estimated_delivery_time
+        description: "Identificador de la hora estimada de entrega"
+      - name: order_cost_usd
+        description: "Precio base del pedido"
+      - name: order_total_usd
+        description: "Precio total para el cliente"
+      - name: shipping_cost_usd
+        description: "Precio de envío"
+      - name: status
+        description: "Estado de la promoción"
+      - name: lag_respect_received_order_hours
+        description: "Retraso de la entrega respecto a la recepción"
+      - name: lag_respect_estimated_delivery_order_hours
+        description: "Retraso de la entrega respecto a la entrega prevista"
+      - name: load_timestamp
+        description: "Fecha de carga"
+      - name: metodo_compra
+        description: "Indicador de si la compra es en tienda física o web"

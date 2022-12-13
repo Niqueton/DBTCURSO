@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: intermediate_order
+    description: "modelo intermedio necesario para poder rellenar y conectar bien la dimensión order con las tablas de hechos"
+    columns:
+      - name: id_dim_orders
+        description: "Llave primaria de la dimensión order"
+      - name: nk_orders
+        description: "Identificador natural del seguimiento del pedido"
+      - name: number_of_different_items
+        description: "Nuúmero de items distintos"
+      - name: total_number_of_items
+        description: "Número total de items"
+      - name: shipping_service
+        description: "Empresa de mensajería"
+      - name: range_order_total_usd
+        description: "Rango de precio total del pedido"

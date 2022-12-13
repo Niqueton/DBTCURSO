@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: dim_promos_actual
+    description: "Dimensión promos actual,con las activas solamente"
+    columns:
+      - name: id_dim_promos
+        description: "Llave surrogada insertada previamente en snowflake"
+      - name: promotion_name
+        description: "Nombre de la promoción"
+      - name: order_discount_in_dollars
+        description: "Descuento aplicado al pedido en dolares"
+      - name: valid_from
+        description: "Válida desde"

@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: intermediate_stockandbudget
+    description: "Tabla intermedia utilizada para calcular predicción lineal de ventas"
+    columns:
+      - name: nk_products
+        description: "Identificador natural de producto"
+      - name: id_anio_mes
+        description: "Identificador de mes y año"
+      - name: id_anio_mes_anterior
+        description: "identificador de mes y año anterior"
+      - name: unidades_mes_pasado
+        description: "Unidades vendidas mes anterior"
+      - name: prevision_lineal_ventas
+        description: "Predicción lineal de numero de unidades que se venderán este mes, el correspondiente a id_anio_mes"

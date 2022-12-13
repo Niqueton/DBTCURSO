@@ -1,0 +1,18 @@
+version: 2
+
+snapshots:
+  - name: stg_promos_snapshot
+    description: "Primera transformación de la tabla original promos"
+    columns:
+      - name: id_dim_promos
+        description: "Llave surrogada insertada previamente en snowflake"
+      - name: promotion_name
+        description: "Nombre de la promoción"
+      - name: order_discount_in_dollars
+        description: "Descuento aplicado al pedido en dolares"
+      - name: status
+        description: "Estado de la promoción"
+      - name: load_date
+        description: "Fecha de carga"
+      - name: load_time
+        description: "Hora de carga"

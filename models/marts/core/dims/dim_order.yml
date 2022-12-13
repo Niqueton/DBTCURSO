@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_order
+    description: "Dimension con características generales del pedido"
+    columns:
+      - name: id_dim_orders
+        description: "Llave primaria de la dimensión order"
+      - name: number_of_different_items
+        description: "Nuúmero de items distintos"
+      - name: total_number_of_items
+        description: "Número total de items"
+      - name: status
+        description: "Estado del pedido"
+      - name: shipping_service
+        description: "Empresa de mensajería"
+      - name: range_order_total_usd
+        description: "Rango de precio total del pedido"

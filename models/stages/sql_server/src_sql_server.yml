@@ -1,0 +1,311 @@
+version: 2
+
+sources:
+
+  - name: src_sql_server
+    schema: sql_server
+    database:  |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno10
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno10 
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno10  
+        {%- else -%} {{target.database}}_bronze_db_alumno10
+        {%- endif -%}
+    tags: ['BRONZE']
+    tables:
+      - name: addresses
+        description: >
+          Contiene direcciones de envíos asociadas a clientes a través de los pedidos.
+        columns:
+          - name: address_id
+            description: >
+              Llave primaria del sistema transaccional.
+            tests:
+              - unique
+              - not_null
+          - name: zipcode
+            description: >
+              Código postal de la dirección.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: number
+          - name: country
+            description: >
+              País de la dirección.
+          - name: address
+            description: >
+              Dirección sin incluir ciudad.
+          - name: state
+            description: >
+              Estado de la dirección.
+          - name: _fivetran_deleted
+            description: >
+              Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
+          - name: _fivetran_synced
+            description: >
+              Parámetro de herramienta de ingesta que indica cuando se cargo al sistema informacional.
+
+      - name: events
+        description: >
+          Tabla que recoge los eventos que suceden en la pagina web de la empresa.
+        columns:
+          - name: event_id
+            description: >
+              LLave primaria del sistema operacional.
+            tests:
+             - not_null
+          - name: page_url
+            description: >
+              Enlace url de cada web que visita cualquier usuario.
+          - name: event_type
+            description: >
+              Tipo de acción que realiza en la página.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_in_set:
+                  value_set: ['add_to_cart','page_view','checkout','package_shipped']
+          - name: user_id
+            description: >
+              Identificador de usuario en el sistema operacional.
+            tests:
+              - relationships:
+                  to: source('src_sql_server','users')
+                  field: user_id
+          - name: product_id
+            description: >
+              Identificador de producto en el sistema operacional.
+          - name: session_id
+            description: >
+              Identificador de la sesión en el sistema operacional.
+          - name: created_at
+            description: >
+              Fecha y hora en la que ocurrió el hecho.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_ntz
+          - name: order_id
+            description: >
+              Identificador de pedidos en el sistema operacional.
+          - name: _fivetran_deleted
+            description: >
+              Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
+          - name: _fivetran_synced
+            description: >
+              Parámetro de herramienta de ingesta que indica cuando se cargo al sistema informacional.
+
+      - name: order_items
+        description: >
+          Tabla en la que se detallan los productos de cada pedido.
+        columns:
+          - name: order_id
+            description: >
+              Identificador de pedidos en el sistema operacional.
+            tests:
+              - not_null
+              - relationships:
+                  to: source('src_sql_server','orders')
+                  field: order_id
+          - name: product_id
+            description: >
+              Identificador de producto en el sistema operacional.
+            tests:
+              - not_null
+              - relationships:
+                  to: source('src_sql_server','products')
+                  field: product_id
+          - name: quantity
+            description: >
+              Unidades de cada producto.
+          - name: _fivetran_deleted
+            description: >
+              Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
+          - name: _fivetran_synced
+            description: >
+              Parámetro de herramienta de ingesta que indica cuando se cargo al sistema informacional.
+
+      - name: orders
+        description: >
+          Tabla de pedidos en el sistema operacional.
+        columns:
+          - name: order_id
+            description: >
+              Identificador de pedidos en el sistema operacional.
+            tests:
+              - not_null
+          - name: shipping_service
+            description: >
+              Empresa con la que se envían los pedidos.
+          - name: shipping_cost
+            description: >
+              Coste del envío.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: float
+          - name: address_id
+            description: >
+              Identificador de la dirección en el sistema operacional.
+            tests:
+              - relationships:
+                  to: source('src_sql_server','addresses')
+                  field: address_id
+          - name: created_at
+            description: >
+              Fecha y hora en la que se recibió el pedido.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_tz
+          - name: promo_id
+            description: >
+              Identificador de las promociones en el sistema transaccional.
+          - name: estimated_delivery_at
+            description: >
+              Fecha y hora de entrega estimada.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_tz
+          - name: order_cost
+            description: >
+              Coste del pedido sin tener en cuenta el envío.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: float
+          - name: user_id
+            description: >
+              Identificador de los usuarios en el sistema transaccional.
+            tests:
+              - relationships:
+                  to: source('src_sql_server','users')
+                  field: user_id
+          - name: order_total
+            description: >
+              Coste total del pedido.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: float
+          - name: delivered_at
+            description: >
+              Fecha y hora de entrega.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_tz
+          - name: tracking_id
+            description: >
+              Identificador de seguimiento de pedido en el sistema operacional.
+          - name: status
+            description: >
+              Estado actual del pedido.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_in_set:
+                  value_set: ['delivered','preparing','shipped']      
+          - name: _fivetran_deleted
+            description: >
+              Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
+          - name: _fivetran_synced
+            description: >
+              Parámetro de herramienta de ingesta que indica cuando se cargo al sistema informacional.
+
+      - name: products
+        description: >
+          Tabla de productos en el sistema operacional.
+        columns:
+          - name: product_id
+            description: >
+              Identificador de producto e el sistema operacional.
+            tests:
+             - unique
+             - not_null
+          - name: price
+            description: >
+              Precio base del producto.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: float
+          - name: name
+            description: >
+              Nombre del producto.
+          - name: inventory
+            description: >
+              Inventario del producto.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: number
+          - name: _fivetran_deleted
+            description: >
+              Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
+          - name: _fivetran_synced
+            description: >
+              Parámetro de herramienta de ingesta que indica cuando se cargo al sistema informacional.
+
+      - name: promos
+        description: >
+          Tabla que guarda las promociones en el sistema operacional.
+        columns:
+          - name: promo_id
+            description: >
+              Identificador de la promoción en el sistema operacional.
+            tests:
+             - unique
+             - not_null
+          - name: discount
+            description: >
+              Descuento aplicado por pedido de cada tipo de promoción.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: number
+          - name: status
+            description: >
+              Estado de la promoción.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_in_set:
+                  value_set: ['inactive','active'] 
+          - name: _fivetran_deleted
+            description: >
+              Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
+          - name: _fivetran_synced
+            description: >
+              Parámetro de herramienta de ingesta que indica cuando se cargo al sistema informacional.
+
+      - name: users
+        description: >
+          Tabla de clientes en el sistema operacional.
+        columns:
+          - name: user_id
+            description: >
+              Identificador de usuario en el sistema transaccional.
+            tests:
+             - unique
+             - not_null
+          - name: updated_at
+            description: >
+              Fecha y hora de actualización.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_tz
+          - name: address_id
+            description: >
+              Identificador de la dirección en el sistema transaccional.
+          - name: last_name
+            description: >
+              Apellido.
+          - name: created_at
+            description: >
+              Fecha y hora de creación del registro.
+            tests:
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: timestamp_tz
+          - name: phone_number
+            description: >
+              Número de teléfono.
+          - name: total_orders
+            description: >
+              Número total de pedidos por cliente.
+          - name: first_name
+            description: >
+              Nombre de pila.
+          - name: email
+            description: >
+              Correo electrónico.
+          - name: _fivetran_deleted
+            description: >
+              Parámetro de herramienta de ingesta que indica si ha sido un dato borrado.
+          - name: _fivetran_synced
+            description: >
+              Parámetro de herramienta de ingesta que indica cuando se cargo al sistema informacional.
