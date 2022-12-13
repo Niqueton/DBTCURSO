@@ -12,5 +12,11 @@ models:
         description: "Identificador de mes y año"
       - name: stock_minimo
         description: "Stock minimo recomendadopara afrontar el nuevo mes en base a predicciones de ventas"
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: number
       - name: Valoracion_USD
         description: "Valor de venta en dolares del stock de cada producto"
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: number
