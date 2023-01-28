@@ -22,7 +22,6 @@ from dim_products_historica
 
 {% if is_incremental() %}
 
-  where NK_products in  (select NK_products from dim_products_historica where ID_LOAD_DATE>
-  (select max(ID_LOAD_DATE) from {{ this }}))
+  where ID_LOAD_DATE> (select max(ID_LOAD_DATE) from {{ this }})
 
 {% endif %}

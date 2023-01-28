@@ -25,8 +25,7 @@ from dim_customer_historica
 
 {% if is_incremental() %}
 
-  and NK_customer in  (select NK_customer from dim_customer_historica where ID_LOAD_DATE>
-  (select max(ID_LOAD_DATE) from {{ this }}))
+  where ID_LOAD_DATE> (select max(ID_LOAD_DATE) from {{ this }})
   
 
 {% endif %}
